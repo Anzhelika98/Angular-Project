@@ -1,0 +1,33 @@
+{
+  "id":2,
+  "code": "AA20",
+  "title": "Project2",
+  "description": "this is second ....",
+  "implementationStatusId": 4,
+  "plannedStartDate": 1495670400000,
+  "plannedEndDate": 1527206400000,
+  "sectors": [
+    {
+      "id": 4,
+      "percent": 30
+    },
+    {
+      "id":1,
+      "percent": 70
+    }
+  ],
+  "locations": [
+    {
+      "id": 3,
+      "countryId": 2,
+      "districtId": 5,
+      "percent": 20
+    },
+    {
+      "id": 4,
+      "countryId": 2,
+      "districtId": 8,
+      "percent": 80
+    }
+  ]
+}

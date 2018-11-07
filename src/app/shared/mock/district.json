@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Martakert",
+    "countryId":1
+  },
+  {
+    "id": 2,
+    "name": "Martuni",
+    "countryId":1
+  },
+  {
+    "id": 3,
+    "name": "Askeran",
+    "countryId":1
+  },
+  {
+    "id": 4,
+    "name": "Hadrut",
+    "countryId":1
+  },
+  {
+    "id": 5,
+    "name": "Syunik",
+    "countryId":2
+  },
+  {
+    "id": 6,
+    "name": "Shirak",
+    "countryId":2
+  },
+  {
+    "id": 7,
+    "name": "Ararat",
+    "countryId":2
+  },
+  {
+    "id": 8,
+    "name": "Armavir",
+    "countryId":2
+  }
+
+
+]

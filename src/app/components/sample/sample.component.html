@@ -1,0 +1,57 @@
+<form action="">
+  <section class="sample-container">
+    <h2>Sample</h2>
+    <div class="content">
+      <div class="code">
+        <label for="">
+          Project Code <span class="asterisk">*</span> </label>
+        <input type="text">
+      </div>
+      <div class="title">
+        <label for="">
+          Project Title <span class="asterisk">*</span> </label>
+        <input type="text">
+      </div>
+      <div class="description">
+        <label for="">
+          Description <span class="asterisk">*</span>
+        </label>
+        <textarea class="desc"></textarea>
+      </div>
+
+      <div class="status">
+        <label for="">
+          Implementation Status<span class="asterisk">*</span>
+        </label>
+        <select name="-select-" id="">
+          <option>-select-</option>
+          <option value="" *ngFor="let status of statuses">{{status.name}}</option>
+        </select>
+      </div>
+
+      <div class="status-date">
+        <div class="date">
+          <div class="start">
+            <label for="">
+              Start date<span class="red">*</span>
+            </label>
+            <input type="date" value="2018-06-24">
+          </div>
+          <div class="end">
+            <label for="">
+              End date<span class="red">*</span>
+            </label>
+            <input type="date" value="2018-06-25">
+          </div>
+          <div class="duration">
+            <label>Duration</label>
+            <input type="text">
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+</form>
+

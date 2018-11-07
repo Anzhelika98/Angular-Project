@@ -1,0 +1,33 @@
+{
+  "id": 1,
+  "code": "AA10",
+  "title": "Project1",
+  "description": "this is first ....",
+  "implementationStatusId": 2,
+  "plannedStartDate": 1408492800000,
+  "plannedEndDate": 1541501927056,
+  "sectors": [
+    {
+      "id": 2,
+      "percent": 40
+    },
+    {
+      "id": 3,
+      "percent": 60
+    }
+  ],
+  "locations": [
+    {
+      "id": 1,
+      "countryId": 1,
+      "districtId": 2,
+      "percent": 50
+    },
+    {
+      "id": 2,
+      "countryId": 1,
+      "districtId": 3,
+      "percent": 50
+    }
+  ]
+}

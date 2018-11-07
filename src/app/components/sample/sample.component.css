@@ -1,0 +1,124 @@
+.sample-container {
+  width: 1200px;
+  margin: 12px auto;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, .20);
+
+}
+
+.content {
+  margin: 12px 18px;
+}
+
+.asterisk {
+  color: #b94a48;
+  padding-left: 5px;
+}
+
+h2 {
+  padding-top: 12px;
+  padding-left: 18px;
+  font-size: 22px;
+  color:#383737d1;
+  font-weight: 500;
+}
+
+label {
+  color: #878787;
+  font-size: 13px;
+  display: block;
+  font-weight: 500;
+  padding-top: 47px;
+  padding-bottom: 8px;
+}
+
+input {
+  border: 1px solid #eee;
+  height: 34px;
+  width: 100%;
+  border-radius: 3px;
+}
+
+input[type="text"] {
+  font-size: 13px;
+  color: #878787;
+}
+
+.code {
+  width: 24%;
+  float: left;
+}
+
+.title {
+  display: inline-block;
+  margin-left: 30px;
+  width: 73%;
+}
+
+.desc {
+  border: 1px solid #eee;
+  height: 34px;
+  width: 100%;
+  border-radius: 3px;
+  height: 128px;
+  color: #878787;
+  max-height: 128px;
+  max-width: 100%;
+}
+
+select {
+  border: 1px solid #eee;
+  height: 34px;
+  width: 160px;
+  border-radius: 3px;
+  color: #878787;
+  padding-left: 9px;
+  display: block;
+}
+
+.status {
+  float: left;
+}
+
+.status label {
+  color: #878787;
+  font-size: 13px;
+  display: block;
+  font-weight: 500;
+  padding-top: 47px;
+  padding-bottom: 8px;
+}
+
+.start, .end {
+  width: 160px;
+  display: inline-block;
+
+}
+
+.start{
+  margin-left: 125px;
+}
+.end{
+  padding-left: 125px;
+}
+.duration {
+  color: #878787;
+  display: inline-block;
+  padding-left: 125px;
+
+}
+ .status-date{
+  padding-bottom: 25px;
+ }
+::-webkit-calendar-picker-indicator {
+  color: transparent;
+  opacity: 1;
+  background: url('http://icons-for-free.com/free-icons/png/512/115762.png') no-repeat center;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  filter: opacity(70%);
+  border-left: 1px solid #eee;
+  margin:0px 4px;
+}
