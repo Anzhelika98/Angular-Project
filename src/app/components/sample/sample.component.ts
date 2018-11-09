@@ -1,12 +1,22 @@
-import {Component, Directive} from '@angular/core';
+import {Component, Directive, OnInit} from '@angular/core';
 import {ImplementationStatus} from '../../shared/model/implementation-status.model';
+import {Project} from '../../shared/model/project.model';
 
 @Component({
   selector: 'app-sample',
   templateUrl: './sample.component.html',
   styleUrls: ['./sample.component.css']
 })
-export class SampleComponent {
+export class SampleComponent implements OnInit {
+
+  public project: Project;
+
+  ngOnInit() {
+    this.project = new Project();
+
+
+  }
+
   public statuses: ImplementationStatus[] = [
     {
       'id': 1,
@@ -41,5 +51,6 @@ export class SampleComponent {
       'name': 'Completed'
     }
   ];
+
 
 }

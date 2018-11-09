@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Sector} from '../../shared/model/sector.model';
 
 
@@ -7,7 +7,10 @@ import {Sector} from '../../shared/model/sector.model';
   templateUrl: './sector.component.html',
   styleUrls: ['./sector.component.css']
 })
-export class SectorComponent {
+export class SectorComponent implements OnInit {
+
+  public sector: Sector;
+
 
   public sectors: Sector[] = [
     {
@@ -27,5 +30,9 @@ export class SectorComponent {
       'name': 'Administrative'
     }
   ];
+
+  ngOnInit() {
+    this.sector = new Sector();
+  }
 
 }

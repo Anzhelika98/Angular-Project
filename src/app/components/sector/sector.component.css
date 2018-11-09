@@ -21,7 +21,7 @@ h2 {
 }
 .add{
   border: 0;
-  width: 88px;
+  width: 65px;
   height: 36px;
   font-family: 'Roboto Medium', 'Roboto Regular', 'Roboto';
   font-weight: 500;
@@ -29,24 +29,20 @@ h2 {
   font-size: 14px;
   color: #FFFFFF;
   background-color: rgba(111, 172, 40, 1);
-  margin-left: 125px;
+  margin-left: 165px;
   cursor: pointer;
   border-radius: 3px;
+  display: inline-block;
+
+
 }
 
-select{
-  border: 1px solid #eee;
-  height: 34px;
-  width: 160px;
-  border-radius: 3px;
-  color: #878787;
-  padding-left: 9px;
-  display: block;
+.sector-select{
   float: left;
 }
 
 .input{
-  margin-left:125px;
-  height: 30px;
-  width: 75px;
+  margin-left: 85px;
+  display: inline-block;
+
 }

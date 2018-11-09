@@ -3,49 +3,72 @@
     <h2>Sample</h2>
     <div class="content">
       <div class="code">
-        <label for="">
-          Project Code <span class="asterisk">*</span> </label>
-        <input type="text">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input  matInput placeholder="Project Code" [formControl]="project.code"    [errorStateMatcher]="project.code">
+
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error >
+              Please enter a valid project code
+            </mat-error>
+            <mat-error>
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </form>
       </div>
       <div class="title">
-        <label for="">
-          Project Title <span class="asterisk">*</span> </label>
-        <input type="text">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Project Title" [formControl]="project.code"    [errorStateMatcher]="project.code">
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error >
+              Please enter a valid project title
+            </mat-error>
+            <mat-error>
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </form>
       </div>
       <div class="description">
-        <label for="">
-          Description <span class="asterisk">*</span>
-        </label>
-        <textarea class="desc"></textarea>
+        <mat-form-field>
+          <textarea matInput placeholder="Textarea"></textarea>
+        </mat-form-field>
       </div>
 
       <div class="status">
-        <label for="">
-          Implementation Status<span class="asterisk">*</span>
-        </label>
-        <select name="-select-" id="">
-          <option>-select-</option>
-          <option value="" *ngFor="let status of statuses">{{status.name}}</option>
-        </select>
+        <mat-form-field>
+          <mat-select placeholder="-select-" [(ngModel)]="project.implementationStatusId" name="status">
+            <mat-option *ngFor="let status of statuses" [value]="status.name">
+              {{status.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div class="status-date">
         <div class="date">
           <div class="start">
-            <label for="">
-              Start date<span class="red">*</span>
-            </label>
-            <input type="date" value="2018-06-24">
+            <mat-form-field>
+              <input matInput [matDatepicker]="start" placeholder="Start date">
+              <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+              <mat-datepicker #start startView="month" [startAt]="project.plannedStartDate"></mat-datepicker>
+            </mat-form-field>
           </div>
           <div class="end">
-            <label for="">
-              End date<span class="red">*</span>
-            </label>
-            <input type="date" value="2018-06-25">
+            <mat-form-field>
+              <input matInput [matDatepicker]="end" placeholder="End date">
+              <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+              <mat-datepicker #end startView="month" [startAt]="project.plannedEndDate"></mat-datepicker>
+            </mat-form-field>
           </div>
           <div class="duration">
-            <label>Duration</label>
-            <input type="text">
+            <form class="example-form">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Duration" [formControl]="project.code"    [errorStateMatcher]="project.code">
+              </mat-form-field>
+            </form>
           </div>
         </div>
 

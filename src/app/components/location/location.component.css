@@ -21,7 +21,7 @@ h2 {
 }
 .add{
   border: 0;
-  width: 88px;
+  width: 65px;
   height: 36px;
   font-family: 'Roboto Medium', 'Roboto Regular', 'Roboto';
   font-weight: 500;
@@ -29,6 +29,9 @@ h2 {
   font-size: 14px;
   color: #FFFFFF;
   background-color: rgba(111, 172, 40, 1);
-  border-radius: 3px;
   cursor: pointer;
+  border-radius: 3px;
+  display: inline-block;
+
+
 }
