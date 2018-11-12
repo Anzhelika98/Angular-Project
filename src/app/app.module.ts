@@ -18,6 +18,8 @@ import {
   ShowOnDirtyErrorStateMatcher
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {LocationPopupComponent} from './components/location/location.popup.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     HeaderComponent,
     SampleComponent,
     LocationComponent,
-    SectorComponent
+    SectorComponent,
+    LocationPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
+  entryComponents:[LocationPopupComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

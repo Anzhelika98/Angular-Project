@@ -2,23 +2,11 @@
   <h2>Project Locations</h2>
   <div class="location-content">
     <div class="add">
-      <button mat-raised-button mat-button>ADD</button>
+      <button mat-raised-button mat-button (click)="openLocationPopup()">ADD</button>
     </div>
 
 
   </div>
 </section>
 
-<div>
-  <h1 mat-dialog-title>Hi {{countries[0].name}}</h1>
-  <div mat-dialog-content>
-    <p>What's your favorite animal?</p>
-    <mat-form-field>
-      <input matInput [(ngModel)]="country.name">
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-    <button mat-button [mat-dialog-close]="country.name" FocusInitial>Ok</button>
-  </div>
-</div>
+

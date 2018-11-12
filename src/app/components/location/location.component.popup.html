@@ -1,0 +1,33 @@
+<div class="popup">
+  <h1 mat-dialog-title>Add project location</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-select placeholder="Country" [(ngModel)]="country.id" name="status">
+        <mat-option *ngFor="let country of countries" [value]="country.name">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="District" [(ngModel)]="district.id" name="status">
+        <mat-option *ngFor="let district of districts" [value]="district.name">
+          {{district.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="" [formControl]="" [errorStateMatcher]="">
+      </mat-form-field>
+    </form>
+
+
+  </div>
+  <div mat-dialog-actions>
+    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+    <button mat-button [mat-dialog-close]="country.name" FocusInitial>Ok</button>
+  </div>
+</div>
