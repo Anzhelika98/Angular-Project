@@ -1,6 +1,7 @@
 import {Component, Directive, OnInit} from '@angular/core';
 import {ImplementationStatus} from '../../shared/model/implementation-status.model';
 import {Project} from '../../shared/model/project.model';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-sample',
@@ -10,13 +11,6 @@ import {Project} from '../../shared/model/project.model';
 export class SampleComponent implements OnInit {
 
   public project: Project;
-
-  ngOnInit() {
-    this.project = new Project();
-
-
-  }
-
   public statuses: ImplementationStatus[] = [
     {
       'id': 1,
@@ -51,6 +45,22 @@ export class SampleComponent implements OnInit {
       'name': 'Completed'
     }
   ];
+
+  constructor(private fb: FormBuilder) {
+
+  }
+
+  ngOnInit() {
+    this.project = new Project();
+  }
+
+  public calculationOfDuration(): number {
+    if (this.project.plannedEndDate && this.project.plannedStartDate &&
+      (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) > 0) {
+      return (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) / (24 * 60 * 60 * 1000);
+    }
+    return null;
+  }
 
 
 }

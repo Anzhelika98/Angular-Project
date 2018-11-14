@@ -5,7 +5,7 @@
       <div class="code">
         <form class="example-form">
           <mat-form-field class="example-full-width">
-            <input  matInput placeholder="Project Code" [formControl]="project.code"    [errorStateMatcher]="project.code">
+            <input  matInput placeholder="Project Code" [(ngModel)]="project.code"  name="code"  [errorStateMatcher]="">
             <mat-hint>Errors appear instantly!</mat-hint>
             <mat-error >
               Please enter a valid project code
@@ -19,7 +19,7 @@
       <div class="title">
         <form class="example-form">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Project Title" [formControl]="project.code"    [errorStateMatcher]="project.code">
+            <input matInput placeholder="Project Title" [(ngModel)]="project.title"  name="title"  [errorStateMatcher]="project.code">
             <mat-hint>Errors appear instantly!</mat-hint>
             <mat-error >
               Please enter a valid project title
@@ -32,7 +32,7 @@
       </div>
       <div class="description">
         <mat-form-field>
-          <textarea matInput placeholder="Textarea"></textarea>
+          <textarea matInput placeholder="Textarea" [(ngModel)]="project.description" name="description"></textarea>
         </mat-form-field>
       </div>
 
@@ -50,24 +50,22 @@
         <div class="date">
           <div class="start">
             <mat-form-field>
-              <input matInput [matDatepicker]="start" placeholder="Start date">
+              <input matInput [matDatepicker]="start" placeholder="Start date"  [(ngModel)]="project.plannedStartDate" name="start">
               <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
               <mat-datepicker #start startView="month" [startAt]="project.plannedStartDate"></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="end">
             <mat-form-field>
-              <input matInput [matDatepicker]="end" placeholder="End date">
+              <input matInput [matDatepicker]="end" placeholder="End date" [(ngModel)]="project.plannedEndDate" name="end">
               <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
               <mat-datepicker #end startView="month" [startAt]="project.plannedEndDate"></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="duration">
-            <form class="example-form">
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Duration" [formControl]="project.code"    [errorStateMatcher]="project.code">
-              </mat-form-field>
-            </form>
+            <label for="duration">Duration
+            <p id="duration" *ngIf="">{{calculationOfDuration()}} </p>
+            </label>
           </div>
         </div>
 

@@ -13,12 +13,14 @@ import {
   ErrorStateMatcher,
   MatButtonModule, MatDialogModule,
   MatInputModule,
-  MatNativeDateModule,
-  MatSelectModule, MatTableModule,
+  MatNativeDateModule, MatProgressSpinnerModule,
+  MatSelectModule, MatSort, MatSortModule, MatTableDataSource, MatTableModule,
   ShowOnDirtyErrorStateMatcher
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {LocationPopupComponent} from './components/location/location.popup.component';
+import {LocationPopupComponent} from './components/location/location-popup.component';
+import {SectorPopupComponent} from './components/sector/sector-popup.component';
+import {ProjectListComponent} from './components/projectList/project-list.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import {LocationPopupComponent} from './components/location/location.popup.compo
     SampleComponent,
     LocationComponent,
     SectorComponent,
-    LocationPopupComponent
+    LocationPopupComponent,
+    SectorPopupComponent,
+    ProjectListComponent
   ],
   imports: [
     BrowserModule,
@@ -42,14 +46,15 @@ import {LocationPopupComponent} from './components/location/location.popup.compo
     FormsModule, ReactiveFormsModule,
     MatButtonModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule
 
 
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
-  entryComponents:[LocationPopupComponent],
+  entryComponents: [LocationPopupComponent, SectorPopupComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

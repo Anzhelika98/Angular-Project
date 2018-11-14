@@ -1,8 +1,34 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Country} from '../../shared/model/country.model';
 import {District} from '../../shared/model/district.model';
-import {LocationPopupComponent} from './location.popup.component';
-import {MatDialog} from '@angular/material';
+import {LocationPopupComponent} from './location-popup.component';
+import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
+
+
+export interface PeriodicElementLoc {
+  country: string;
+  district: string;
+  percent: number;
+}
+
+const ELEMENT_DATA_LOC: PeriodicElementLoc[] = [
+  {
+    'country': 'Artsakh',
+    'district': 'Martakaert',
+    'percent': 50
+  },
+  {
+    'country': 'Erevan',
+    'district': 'Syunik',
+    'percent': 88
+  },
+  {
+    'country': 'Artsakh',
+    'district': 'Martuni',
+    'percent': 56
+  }
+
+];
 
 @Component({
   selector: 'app-location',
@@ -10,10 +36,14 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./location.component.css']
 })
 export class LocationComponent implements OnInit {
-  public location: Location;
+
   public country: Country;
   public district: District;
   public data: SendLocationData;
+
+  displayedColumns: string[] = ['country', 'district', 'percent'];
+  dataSource = new MatTableDataSource(ELEMENT_DATA_LOC);
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(public dialog: MatDialog) {
 
@@ -34,41 +64,48 @@ export class LocationComponent implements OnInit {
   public districts: District[] = [
     {
       'id': 1,
-      'name': 'Martakert'
-
+      'name': 'Martakert',
+      'countryId': 1
     },
     {
       'id': 2,
-      'name': 'Martuni'
-
+      'name': 'Martuni',
+      'countryId': 1
     },
     {
       'id': 3,
-      'name': 'Askeran'
+      'name': 'Askeran',
+      'countryId': 1
     },
     {
       'id': 4,
-      'name': 'Hadrut'
+      'name': 'Hadrut',
+      'countryId': 1
     },
     {
       'id': 5,
-      'name': 'Syunik'
+      'name': 'Syunik',
+      'countryId': 2
     },
     {
       'id': 6,
-      'name': 'Shirak'
+      'name': 'Shirak',
+      'countryId': 2
     },
     {
       'id': 7,
-      'name': 'Ararat'
+      'name': 'Ararat',
+      'countryId': 2
     },
     {
       'id': 8,
-      'name': 'Armavir'
+      'name': 'Armavir',
+      'countryId': 2
     }
 
 
-  ];
+  ]
+  ;
 
   ngOnInit() {
 
@@ -79,7 +116,7 @@ export class LocationComponent implements OnInit {
   openLocationPopup(): void {
     const dialogRef = this.dialog.open(LocationPopupComponent, {
       width: '250px',
-      data: {countryId: 1, countries: this.countries, districtId: 2, districts: this.districts, percent: 100}
+      data: {countryId: 1, countries: this.countries, districtId: 3, districts: this.districts, percent: 80}
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -6,17 +6,19 @@ import {District} from '../../shared/model/district.model';
 
 @Component({
   selector: 'app-location-popup',
-  templateUrl: './location.component.popup.html'
+  templateUrl: './location-popup.component.html'
 })
 export class LocationPopupComponent {
   public country: Country;
   public district: District;
+
   constructor(
     public dialogRef: MatDialogRef<LocationPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: LocationPopupData) {
     this.country = new Country();
     this.district = new District();
   }
+
   public countries: Country[] =
     [
       {
@@ -33,46 +35,52 @@ export class LocationPopupComponent {
   public districts: District[] = [
     {
       'id': 1,
-      'name': 'Martakert'
-
+      'name': 'Martakert',
+      'countryId': 1
     },
     {
       'id': 2,
-      'name': 'Martuni'
-
+      'name': 'Martuni',
+      'countryId': 1
     },
     {
       'id': 3,
-      'name': 'Askeran'
+      'name': 'Askeran',
+      'countryId': 1
     },
     {
       'id': 4,
-      'name': 'Hadrut'
+      'name': 'Hadrut',
+      'countryId': 1
     },
     {
       'id': 5,
-      'name': 'Syunik'
+      'name': 'Syunik',
+      'countryId': 2
     },
     {
       'id': 6,
-      'name': 'Shirak'
+      'name': 'Shirak',
+      'countryId': 2
     },
     {
       'id': 7,
-      'name': 'Ararat'
+      'name': 'Ararat',
+      'countryId': 2
     },
     {
       'id': 8,
-      'name': 'Armavir'
+      'name': 'Armavir',
+      'countryId': 2
     }
 
 
-  ];
+  ]
+  ;
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 
 
 }

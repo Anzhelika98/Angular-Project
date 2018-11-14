@@ -2,12 +2,12 @@
 .bg-color {
   background-color: rgba(85, 170, 65, 1);
   width: 100%;
-  background-image: url('https://d26uhratvi024l.cloudfront.net/gsc/PLJI1H/5c/59/5b/5c595b5a726642ca941af05a9d660706/images/1__general_information/u0_state0.png?token=74c1c5bee1761e27d89eeb5711b65c77');
   position: relative;
   left: 0px;
   top: 0px;
   height: 150px;
   background-position: center top;
+  background-image: url("src/assets/image/header-bg.png");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: 1647px 153px;
@@ -72,6 +72,6 @@
   border-radius: 3px;
 }
 
-.save:hover,.save-close:hover{
-  background-color:#e1e2e0;;
+.save:hover, .save-close:hover {
+  background-color: #e1e2e0;;
 }
