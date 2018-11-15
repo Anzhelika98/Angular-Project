@@ -1,31 +1,25 @@
-<form action="">
+<form class="example-form">
   <section class="sample-container">
     <h2>Sample</h2>
     <div class="content">
+
       <div class="code">
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <input  matInput placeholder="Project Code" [(ngModel)]="project.code"  name="code"  [errorStateMatcher]="">
-            <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error >
-              Please enter a valid project code
-            </mat-error>
-            <mat-error>
-              Email is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </form>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Project Code" [(ngModel)]="project.code" name="code" [errorStateMatcher]=""
+                 required
+                 #code="ngModel">
+          <mat-error>
+           Project code is required
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="title">
         <form class="example-form">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Project Title" [(ngModel)]="project.title"  name="title"  [errorStateMatcher]="project.code">
-            <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error >
-              Please enter a valid project title
-            </mat-error>
+            <input matInput placeholder="Project Title" [(ngModel)]="project.title" name="title"
+                   [errorStateMatcher]="project.title" required #title="ngModel">
             <mat-error>
-              Email is <strong>required</strong>
+             Project title is required
             </mat-error>
           </mat-form-field>
         </form>
@@ -38,11 +32,16 @@
 
       <div class="status">
         <mat-form-field>
-          <mat-select placeholder="-select-" [(ngModel)]="project.implementationStatusId" name="status">
+          <mat-select placeholder="-select-" [(ngModel)]="project.implementationStatusId" name="status"
+                      #status="ngModel"
+                      required>
             <mat-option *ngFor="let status of statuses" [value]="status.name">
               {{status.name}}
             </mat-option>
           </mat-select>
+          <mat-error>
+            Project implementation status is required
+          </mat-error>
         </mat-form-field>
       </div>
 
@@ -50,28 +49,42 @@
         <div class="date">
           <div class="start">
             <mat-form-field>
-              <input matInput [matDatepicker]="start" placeholder="Start date"  [(ngModel)]="project.plannedStartDate" name="start">
+              <input matInput [matDatepicker]="start" placeholder="Planned Start Date"
+                     [(ngModel)]="project.plannedStartDate"
+                     name="start" #start="ngModel" required>
+              <mat-error>
+                 Planned Start Date is required
+              </mat-error>
               <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
               <mat-datepicker #start startView="month" [startAt]="project.plannedStartDate"></mat-datepicker>
             </mat-form-field>
           </div>
+
           <div class="end">
             <mat-form-field>
-              <input matInput [matDatepicker]="end" placeholder="End date" [(ngModel)]="project.plannedEndDate" name="end">
+              <input matInput [matDatepicker]="end" placeholder="Planned End Date"
+                     [(ngModel)]="project.plannedEndDate"
+                     name="end">
               <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
               <mat-datepicker #end startView="month" [startAt]="project.plannedEndDate"></mat-datepicker>
             </mat-form-field>
           </div>
+
           <div class="duration">
-            <label for="duration">Duration
-            <p id="duration" *ngIf="">{{calculationOfDuration()}} </p>
-            </label>
+            <label for="duration">Duration</label>
+            <p id="duration" *ngIf="dayOrDays();else days">
+              {{calculationOfDuration()}} day
+            </p>
+            <ng-template #days>
+              {{calculationOfDuration()}} days
+            </ng-template>
+
           </div>
         </div>
-
-
       </div>
+
+
     </div>
   </section>
-</form>
 
+</form>

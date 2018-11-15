@@ -2,25 +2,31 @@
   <h1 mat-dialog-title>Add project location</h1>
   <div mat-dialog-content>
     <mat-form-field>
-      <mat-select placeholder="Country" [(ngModel)]="country.id" name="status">
+      <mat-select placeholder="Country * " [(ngModel)]="country.id" name="country" #countryId="ngModel">
         <mat-option *ngFor="let country of countries" [value]="country.name">
           {{country.name}}
         </mat-option>
       </mat-select>
+      <mat-error>
+        Country is required
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="District" [(ngModel)]="district.id" name="status">
+      <mat-select placeholder="District * " [(ngModel)]="district.id" name="district" #districtId="ngModel">
         <mat-option *ngFor="let district of districts" [value]="district.name">
           {{district.name}}
         </mat-option>
       </mat-select>
+      <mat-error>
+        District is required
+      </mat-error>
     </mat-form-field>
 
 
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="" [formControl]="data.percent" [errorStateMatcher]="">
+        <input matInput placeholder="%" [formControl]="data.percent" [errorStateMatcher]="">
       </mat-form-field>
     </form>
 

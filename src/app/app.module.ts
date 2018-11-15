@@ -21,8 +21,15 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LocationPopupComponent} from './components/location/location-popup.component';
 import {SectorPopupComponent} from './components/sector/sector-popup.component';
 import {ProjectListComponent} from './components/projectList/project-list.component';
+import {ProjectComponent} from './components/project/project.component';
+import {Routes} from '@angular/router';
 
 
+const appRoutes: Routes = [
+  {
+    path: 'project/:id', component: ProjectComponent
+  }
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +39,8 @@ import {ProjectListComponent} from './components/projectList/project-list.compon
     SectorComponent,
     LocationPopupComponent,
     SectorPopupComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,

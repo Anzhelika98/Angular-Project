@@ -1,8 +1,7 @@
 <div class="project-list">
   <div class="project-list-content">
+    <h2>Project List</h2>
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-      <h2>ProjectList</h2>
       <!-- ID Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> id</th>
@@ -19,6 +18,11 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <a *ngFor="let project of projects"
+       [routerLink]="['/project', project.id]">
+      {{ product.name }}
+    </a>
 
 
     <div class="add">

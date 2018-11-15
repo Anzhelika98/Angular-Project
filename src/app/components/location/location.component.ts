@@ -2,7 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Country} from '../../shared/model/country.model';
 import {District} from '../../shared/model/district.model';
 import {LocationPopupComponent} from './location-popup.component';
-import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
+import {MatSort, MatTableDataSource} from '@angular/material'
+import {MatDialog} from '@angular/material';
 
 
 export interface PeriodicElementLoc {
@@ -108,7 +109,7 @@ export class LocationComponent implements OnInit {
   ;
 
   ngOnInit() {
-
+    this.dataSource.sort = this.sort;
     this.country = new Country();
     this.district = new District();
   }

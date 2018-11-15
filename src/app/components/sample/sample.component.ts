@@ -56,10 +56,16 @@ export class SampleComponent implements OnInit {
 
   public calculationOfDuration(): number {
     if (this.project.plannedEndDate && this.project.plannedStartDate &&
-      (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) > 0) {
+      (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) >= 0) {
       return (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) / (24 * 60 * 60 * 1000);
     }
     return null;
+  }
+
+  public dayOrDays(): boolean {
+    if (this.calculationOfDuration() >= 0 && this.calculationOfDuration() < 10) {
+      return true;
+    }
   }
 
 

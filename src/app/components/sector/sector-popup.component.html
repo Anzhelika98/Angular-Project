@@ -1,27 +1,28 @@
-<div class="popup">
-  <h1 mat-dialog-title>Add project Sector</h1>
-  <div mat-dialog-content>
-    <mat-form-field>
-      <mat-select placeholder="Select Goal" [(ngModel)]="sector.id" name="status">
-        <mat-option *ngFor="let sector of sectors" [value]="sector.name">
-          {{sector.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<form action="">
+  <div class="popup">
+    <h1 mat-dialog-title>Add project Sector</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <mat-select placeholder="Select Goal" [(ngModel)]="sector.id" name="status">
+          <mat-option *ngFor="let sector of sectors" [value]="sector.name">
+            {{sector.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="%" [errorStateMatcher]="" [(ngModel)]="data.percent" name="percent">
+      </mat-form-field>
+    </form>
+
+
   </div>
-
-
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="%" [formControl]="data.percent" [errorStateMatcher]="">
-    </mat-form-field>
-  </form>
-
-
-</div>
-<div mat-dialog-actions>
-  <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-  <button mat-button [mat-dialog-close]="sector.name" FocusInitial>Ok</button>
-</div>
-
+  <div mat-dialog-actions>
+    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+    <button mat-button [mat-dialog-close]="sector.name" FocusInitial>Ok</button>
+  </div>
+</form>
 
