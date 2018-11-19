@@ -1,13 +1,11 @@
-<form class="example-form">
+<form class="example-form"  [formGroup]="projectForm">
   <section class="sample-container">
     <h2>Sample</h2>
     <div class="content">
 
       <div class="code">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Project Code" [(ngModel)]="project.code" name="code" [errorStateMatcher]=""
-                 required
-                 #code="ngModel">
+          <input matInput placeholder="Project Code"    [errorStateMatcher]=""  [formControl]="project.code" [name]="project.code" required >
           <mat-error>
            Project code is required
           </mat-error>
@@ -16,8 +14,8 @@
       <div class="title">
         <form class="example-form">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Project Title" [(ngModel)]="project.title" name="title"
-                   [errorStateMatcher]="project.title" required #title="ngModel">
+            <input matInput placeholder="Project Title" [formControlName]="project.title" formControl="projectTitle"
+                   [errorStateMatcher]="project.title" required >
             <mat-error>
              Project title is required
             </mat-error>
@@ -26,14 +24,14 @@
       </div>
       <div class="description">
         <mat-form-field>
-          <textarea matInput placeholder="Textarea" [(ngModel)]="project.description" name="description"></textarea>
+          <textarea matInput placeholder="Textarea" [formControl]="project.description" name="description"></textarea>
         </mat-form-field>
       </div>
 
       <div class="status">
         <mat-form-field>
-          <mat-select placeholder="-select-" [(ngModel)]="project.implementationStatusId" name="status"
-                      #status="ngModel"
+          <mat-select placeholder="-select-" [formControl]="project.implementationStatusId" name="status"
+
                       required>
             <mat-option *ngFor="let status of statuses" [value]="status.name">
               {{status.name}}
@@ -50,8 +48,8 @@
           <div class="start">
             <mat-form-field>
               <input matInput [matDatepicker]="start" placeholder="Planned Start Date"
-                     [(ngModel)]="project.plannedStartDate"
-                     name="start" #start="ngModel" required>
+                     [formControl]="project.plannedStartDate"
+                     name="start"  required>
               <mat-error>
                  Planned Start Date is required
               </mat-error>
@@ -63,7 +61,7 @@
           <div class="end">
             <mat-form-field>
               <input matInput [matDatepicker]="end" placeholder="Planned End Date"
-                     [(ngModel)]="project.plannedEndDate"
+                     [formControl]="project.plannedEndDate"
                      name="end">
               <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
               <mat-datepicker #end startView="month" [startAt]="project.plannedEndDate"></mat-datepicker>

@@ -22,14 +22,13 @@ import {LocationPopupComponent} from './components/location/location-popup.compo
 import {SectorPopupComponent} from './components/sector/sector-popup.component';
 import {ProjectListComponent} from './components/projectList/project-list.component';
 import {ProjectComponent} from './components/project/project.component';
-import {Routes} from '@angular/router';
+import {ProjectService} from './shared/api/project.service';
+import {ImpProjectService} from './shared/service/imp-project.service';
+import {RouterModule} from '@angular/router';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {AppRoutingModules} from './app-routing.modules';
 
 
-const appRoutes: Routes = [
-  {
-    path: 'project/:id', component: ProjectComponent
-  }
-];
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,12 +54,13 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatTableModule,
     MatDialogModule,
-    MatSortModule
-
+    MatSortModule,
+    HttpClientModule,
+    AppRoutingModules
 
   ],
   providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    {provide: ProjectService, useClass: ImpProjectService}
   ],
   entryComponents: [LocationPopupComponent, SectorPopupComponent],
   bootstrap: [AppComponent]

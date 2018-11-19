@@ -1,4 +1,4 @@
-.project-list{
+.project-list {
   width: 1200px;
   margin: 12px auto;
   background-color: #fff;
@@ -7,7 +7,6 @@
 
 }
 
-
 h2 {
   padding-top: 12px;
   padding-left: 18px;
@@ -15,7 +14,8 @@ h2 {
   color: #383737d1;
   font-weight: 500;
 }
-.project-list-content{
+
+.project-list-content {
   padding-top: 47px;
   padding-bottom: 25px;
   margin: 12px 18px;
@@ -28,7 +28,8 @@ table {
 th.mat-sort-header-sorted {
   color: black;
 }
-.add{
+
+.add {
   border: 0;
   width: 65px;
   height: 36px;
@@ -42,6 +43,27 @@ th.mat-sort-header-sorted {
   cursor: pointer;
   border-radius: 3px;
   display: inline-block;
+}
 
+a {
+  text-decoration: none;
+  color: #000;
+}
 
+a:hover {
+  color: #518416;
+}
+
+ul li {
+  list-style-type: none;
+  margin: 13px 0;
+
+}
+
+.id {
+  padding-right: 8px;
+}
+
+.selected {
+  color: yellowgreen;
 }
