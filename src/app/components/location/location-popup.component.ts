@@ -1,22 +1,32 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Country} from '../../shared/model/country.model';
 import {District} from '../../shared/model/district.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
   selector: 'app-location-popup',
   templateUrl: './location-popup.component.html'
 })
-export class LocationPopupComponent {
+export class LocationPopupComponent implements OnInit {
   public country: Country;
   public district: District;
+  public locationForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<LocationPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: LocationPopupData) {
+    @Inject(MAT_DIALOG_DATA) public data: LocationPopupData,
+    private fb: FormBuilder) {
     this.country = new Country();
     this.district = new District();
+  }
+
+  ngOnInit() {
+    this.locationForm = this.fb.group({
+      projectCountry: ['', Validators.required],
+      projectDistrict: ['', Validators.required]
+    });
   }
 
   public countries: Country[] =
@@ -75,8 +85,8 @@ export class LocationPopupComponent {
     }
 
 
-  ]
-  ;
+  ];
+
 
   onNoClick(): void {
     this.dialogRef.close();

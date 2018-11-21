@@ -19,7 +19,7 @@ import {
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LocationPopupComponent} from './components/location/location-popup.component';
-import {SectorPopupComponent} from './components/sector/sector-popup.component';
+
 import {ProjectListComponent} from './components/projectList/project-list.component';
 import {ProjectComponent} from './components/project/project.component';
 import {ProjectService} from './shared/api/project.service';
@@ -37,7 +37,6 @@ import {AppRoutingModules} from './app-routing.modules';
     LocationComponent,
     SectorComponent,
     LocationPopupComponent,
-    SectorPopupComponent,
     ProjectListComponent,
     ProjectComponent
   ],
@@ -62,7 +61,7 @@ import {AppRoutingModules} from './app-routing.modules';
   providers: [
     {provide: ProjectService, useClass: ImpProjectService}
   ],
-  entryComponents: [LocationPopupComponent, SectorPopupComponent],
+  entryComponents: [LocationPopupComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

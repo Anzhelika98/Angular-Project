@@ -1,9 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Sector} from '../../shared/model/sector.model';
-
 import {MatDialog} from '@angular/material';
-import {SectorPopupComponent} from './sector-popup.component';
 import {MatSort, MatTableDataSource} from '@angular/material';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 
 export interface PeriodicElement {
@@ -41,6 +40,7 @@ export class SectorComponent implements OnInit {
 
   public sector: Sector;
   public data: SendSectorData;
+  public sectorForm: FormGroup;
 
   displayedColumns: string[] = ['name', 'percent'];
   dataSource = new MatTableDataSource(ELEMENT_DATA_SECTOR);
@@ -66,26 +66,21 @@ export class SectorComponent implements OnInit {
     }
   ];
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private fb: FormBuilder) {
 
   }
 
   ngOnInit() {
     this.sector = new Sector();
     this.dataSource.sort = this.sort;
-  }
 
-  openSectorPopup(): void {
-    const dialogRef = this.dialog.open(SectorPopupComponent, {
-      width: '250px',
-      data: {sectorId: 1, sectors: this.sectors, percent: 66}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.data = result;
+    this.sectorForm = this.fb.group({
+      sectorName: ['']
     });
   }
+
+
+
 
 }
 

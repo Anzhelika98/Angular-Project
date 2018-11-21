@@ -23,8 +23,7 @@ export interface PeriodicElementProject {
 })
 export class ProjectListComponent implements OnInit {
 
-  constructor(private projectService: ImpProjectService,
-              private route: ActivatedRoute, private router: Router, private service: ProjectService) {
+  constructor(private projectService: ImpProjectService) {
 
   }
 
@@ -42,33 +41,34 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(x => {
-      this.projectService.projects = x;
-      for (const project of x['project']) {
-        this.projectInfo = {
-          'id': project['id'],
-          'name': project['title']
-        };
+        this.projectService.projects = x;
+        for (const project of x) {
+          this.projectInfo = {
+            'id': project['id'],
+            'name': project['title']
+          };
 
-        this.projectList.push(this.projectInfo);
-      }
-      this.dataSource = new MatTableDataSource(this.projectList);
-      this.dataSource.sort = this.sort;
+          this.projectList.push(this.projectInfo);
+        }
+        this.dataSource = new MatTableDataSource(this.projectList);
+        this.dataSource.sort = this.sort;
 
-      const id = this.route.snapshot.paramMap.get('id');
-      this.project$ = this.service.getProjectById(+id);
-
-      this.project$ = this.route.paramMap.pipe(
-        switchMap(params => {
-          this.selectedId = +params.get('id');
-          return this.service.getProjects().pipe();
-        }));
-    }
+      },
+      error => console.error(error));
   }
 
-  public gotoProjects() {
-    const projectId = this.project ? this.project.id : null;
-    this.router.navigate(['/projects', {id: projectId}]);
-  }
+  // this.project$ = this.route.paramMap.pipe(
+  //   switchMap(params => {
+  //     this.selectedId = +params.get('id');
+  //     return this.service.getProjects().pipe();
+  //   }));
+
+
+  // public gotoProjects() {
+  //   const projectId = this.project ? this.project.id : null;
+  //   this.router.navigate(['/projects', {id: projectId}]);
+  // }
+
 
 }
 

@@ -1,6 +1,6 @@
 import {Observable, of, zip} from 'rxjs';
 import {Project} from '../model/project.model';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {ProjectService} from '../api/project.service';
@@ -26,11 +26,15 @@ export class ImpProjectService extends ProjectService {
 
   getProjects(): Observable<Project[]> {
     const projects: Observable<Project[]> = zip(
-      this.http.get('./src/app/shared/mock/project-1.json'),
-      this.http.get('./src/app/shared/mock/project-2.json'),
-      this.http.get('./src/app/shared/mock/project-3.json')
+      this.http.get<Project>('./src/app/shared/mock/project-1.json'),
+      this.http.get<Project>('./src/app/shared/mock/project-2.json'),
+      this.http.get<Project>('./src/app/shared/mock/project-3.json')
     ).pipe(
-      map((project: Project) => ({project}))
+      tap(data => {
+        if (!this._projects) {
+          this._projects = <Project[]>data;
+        }
+      })
     );
 
     return projects;
@@ -42,9 +46,7 @@ export class ImpProjectService extends ProjectService {
   }
 
   getProjectById(id: number): Observable<Project> {
-    return this.http.get('./src/app/shared/mock/project-1.json').pipe(
-      map((project) => (project as Array<Project>).find((elem) => id === elem['id']))
-    );
+    return this.http.get<Project>(`./src/app/shared/mock/project-${id}.json`);
   }
 
   get projects(): Project[] {

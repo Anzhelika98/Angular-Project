@@ -7,9 +7,10 @@
 
 body{
   background-color: #eee;
-  font-family: 'Roboto Medium', 'Roboto Regular', 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-style: normal;
+  color: #444444;
 
 }
 

@@ -1,7 +1,8 @@
-import {Component, Directive, OnInit} from '@angular/core';
+import {Component, Directive, Input, OnInit} from '@angular/core';
 import {ImplementationStatus} from '../../shared/model/implementation-status.model';
 import {Project} from '../../shared/model/project.model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {start} from 'repl';
 
 @Component({
   selector: 'app-sample',
@@ -10,8 +11,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class SampleComponent implements OnInit {
 
-  public project: Project;
-
+  @Input() project: Project;
+  public sampleForm: FormGroup;
 
   public statuses: ImplementationStatus[] = [
     {
@@ -47,30 +48,33 @@ export class SampleComponent implements OnInit {
       'name': 'Completed'
     }
   ];
-  public projectForm: FormGroup;
 
-  constructor() {
+
+  constructor(private fb: FormBuilder) {
 
   }
 
 
   ngOnInit() {
     this.project = new Project();
-    this.projectForm = new FormGroup({
-      projectCode: new FormControl(''),
-      projectTitle: new FormControl(''),
-      projectDescription: new FormControl(''),
-      projectImplementationStatus: new FormControl(''),
-      projectStartDate: new FormControl(''),
-      projectEndDate: new FormControl('')
+
+    this.sampleForm = this.fb.group({
+      projectCode: ['', Validators.required],
+      projectTitle: ['', Validators.required],
+      projectDescription: [''],
+      projectImplementationStatus: [''],
+      projectStartDate: ['', Validators.required],
+      projectEndDate: ['', Validators.required],
     });
+
+
   }
 
 
   public calculationOfDuration(): number {
     if (this.project.plannedEndDate && this.project.plannedStartDate &&
-      (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) >= 0) {
-      return (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) / (24 * 60 * 60 * 1000);
+      (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) >= 0) {//24*60*60*1000
+      return +((this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) / 86400000).toFixed();
     }
     return null;
   }
