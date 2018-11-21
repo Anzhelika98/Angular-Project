@@ -12,7 +12,7 @@ import {start} from 'repl';
 export class SampleComponent implements OnInit {
 
   @Input() project: Project;
-  public sampleForm: FormGroup;
+  @Input() sampleForm: FormGroup;
 
   public statuses: ImplementationStatus[] = [
     {
@@ -55,18 +55,8 @@ export class SampleComponent implements OnInit {
   }
 
 
+
   ngOnInit() {
-    this.project = new Project();
-
-    this.sampleForm = this.fb.group({
-      projectCode: ['', Validators.required],
-      projectTitle: ['', Validators.required],
-      projectDescription: [''],
-      projectImplementationStatus: [''],
-      projectStartDate: ['', Validators.required],
-      projectEndDate: ['', Validators.required],
-    });
-
 
   }
 

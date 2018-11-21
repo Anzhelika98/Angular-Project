@@ -1,7 +1,7 @@
-<form>
-  <app-header ></app-header>
-  <app-sample [project]="project"></app-sample>
-  <app-sector></app-sector>
-  <app-location></app-location>
+<form [formGroup]="projectForm" *ngIf="isReady">
+  <app-header></app-header>
+  <app-sample [project]="project" [sampleForm]="projectForm.controls.sampleForm"></app-sample>
+  <app-sector [sectors]="project.sectors" [sectorForm]="projectForm.controls.sectorForm"></app-sector>
+  <app-location [locationForm]="projectForm.controls.locationForm"></app-location>
 </form>
 

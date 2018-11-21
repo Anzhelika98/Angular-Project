@@ -40,9 +40,9 @@ export class ProjectListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.projectService.getProjects().subscribe(x => {
-        this.projectService.projects = x;
-        for (const project of x) {
+    this.projectService.getProjects().subscribe(projects => {
+        this.projectService.projects = projects;
+        for (const project of projects) {
           this.projectInfo = {
             'id': project['id'],
             'name': project['title']

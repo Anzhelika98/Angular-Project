@@ -1,9 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Country} from '../../shared/model/country.model';
 import {District} from '../../shared/model/district.model';
 import {LocationPopupComponent} from './location-popup.component';
-import {MatSort, MatTableDataSource} from '@angular/material'
+import {MatSort, MatTableDataSource} from '@angular/material';
 import {MatDialog} from '@angular/material';
+import {FormGroup} from '@angular/forms';
+import {ImpProjectService} from '../../shared/service/imp-project.service';
 
 
 export interface PeriodicElementLoc {
@@ -38,86 +40,46 @@ const ELEMENT_DATA_LOC: PeriodicElementLoc[] = [
 })
 export class LocationComponent implements OnInit {
 
+  @Input() locationForm: FormGroup;
+
   public country: Country;
   public district: District;
   public data: SendLocationData;
+  public countriesList: Country[];
+  public districtList: District[];
 
   displayedColumns: string[] = ['country', 'district', 'percent'];
   dataSource = new MatTableDataSource(ELEMENT_DATA_LOC);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private projectService: ImpProjectService) {
 
   }
 
-  public countries: Country[] =
-    [
-      {
-        'id': 1,
-        'name': 'Artsakh'
-      },
-      {
-        'id': 2,
-        'name': 'Erevan'
-      }
-    ];
-
-  public districts: District[] = [
-    {
-      'id': 1,
-      'name': 'Martakert',
-      'countryId': 1
-    },
-    {
-      'id': 2,
-      'name': 'Martuni',
-      'countryId': 1
-    },
-    {
-      'id': 3,
-      'name': 'Askeran',
-      'countryId': 1
-    },
-    {
-      'id': 4,
-      'name': 'Hadrut',
-      'countryId': 1
-    },
-    {
-      'id': 5,
-      'name': 'Syunik',
-      'countryId': 2
-    },
-    {
-      'id': 6,
-      'name': 'Shirak',
-      'countryId': 2
-    },
-    {
-      'id': 7,
-      'name': 'Ararat',
-      'countryId': 2
-    },
-    {
-      'id': 8,
-      'name': 'Armavir',
-      'countryId': 2
-    }
-
-
-  ]
-  ;
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
-    this.country = new Country();
-    this.district = new District();
+    this.projectService.getCountries().subscribe(
+      countries => {
+        this.countriesList = countries;
+      }
+    );
+
+    this.projectService.getDistricts().subscribe(
+      districts => {
+        this.districtList = districts;
+      }
+    );
+
   }
 
   openLocationPopup(): void {
     const dialogRef = this.dialog.open(LocationPopupComponent, {
       width: '250px',
-      data: {countryId: 1, countries: this.countries, districtId: 3, districts: this.districts, percent: 80}
+      data: {
+        countryId: 1, countries: this.countriesList, districtId: 3, districts: this.districtList, percent: 80,
+        locationForm: this.locationForm
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

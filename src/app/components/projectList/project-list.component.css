@@ -57,6 +57,7 @@ a:hover {
 ul li {
   list-style-type: none;
   margin: 13px 0;
+  padding: 9px;
 
 }
 
@@ -64,6 +65,25 @@ ul li {
   padding-right: 8px;
 }
 
+li:hover {
+  background-color: #eeeeee;
+  border-radius: 3px;
+}
+
 .selected {
   color: yellowgreen;
+}
+
+.cancel {
+  font-size: 35px;
+  float: right;
+  display: inline-block;
+  cursor: pointer;
+  transform: rotate(45deg);
+  margin-top: -13px;
+  color: #7b7b7a;
+}
+
+.cancel:hover {
+  color: #353535;
 }

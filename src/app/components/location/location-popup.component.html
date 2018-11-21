@@ -1,39 +1,39 @@
-<div class="popup">
-  <h1 mat-dialog-title>Add project location</h1>
-  <div mat-dialog-content>
-    <mat-form-field>
-      <mat-select placeholder="Country * " [(ngModel)]="country.id" name="country" #countryId="ngModel">
-        <mat-option *ngFor="let country of countries" [value]="country.name">
-          {{country.name}}
-        </mat-option>
-      </mat-select>
-      <mat-error>
-        Country is required
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-select placeholder="District * " [(ngModel)]="district.id" name="district" #districtId="ngModel">
-        <mat-option *ngFor="let district of districts" [value]="district.name">
-          {{district.name}}
-        </mat-option>
-      </mat-select>
-      <mat-error>
-        District is required
-      </mat-error>
-    </mat-form-field>
-
-
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="%" [formControl]="data.percent" [errorStateMatcher]="">
+<form [formGroup]="data.locationForm">
+  <div class="popup">
+    <h1 mat-dialog-title>Add project location</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <mat-select placeholder="Country * " name="country" formControlName="projectCountry">
+          <mat-option *ngFor="let country of countriesList" [value]="country.name" >
+            {{country.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Country is required
+        </mat-error>
       </mat-form-field>
-    </form>
+
+      <mat-form-field >
+        <mat-select placeholder="District * " name="district" formControlName="projectDistrict">
+          <mat-option *ngFor="let district of districtList" [value]="district.name" >
+            {{district.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          District is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="%" formControlName="projectPercent" >
+      </mat-form-field>
 
 
+    </div>
+    <div mat-dialog-actions>
+      <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+      <button mat-button [mat-dialog-close]="country.name" FocusInitial>Ok</button>
+    </div>
   </div>
-  <div mat-dialog-actions>
-    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-    <button mat-button [mat-dialog-close]="country.name" FocusInitial>Ok</button>
-  </div>
-</div>
+</form>
+

@@ -1,8 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Sector} from '../../shared/model/sector.model';
 import {MatDialog} from '@angular/material';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ImpProjectService} from '../../shared/service/imp-project.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProjectService} from '../../shared/api/project.service';
+import {from, Observable, pipe} from 'rxjs';
+import {Project} from '../../shared/model/project.model';
+import {log} from 'util';
+import {map, tap} from 'rxjs/operators';
 
 
 export interface PeriodicElement {
@@ -10,26 +17,26 @@ export interface PeriodicElement {
   percent: number;
 }
 
-const ELEMENT_DATA_SECTOR: PeriodicElement[] = [
-  {
-    'name': 'Health',
-    'percent': 100
-  },
-  {
-
-    'name': 'Agricalture',
-    'percent': 80
-  },
-  {
-    'name': 'Economy',
-    'percent': 88
-  },
-  {
-
-    'name': 'Administrative',
-    'percent': 99
-  }
-];
+// const ELEMENT_DATA_SECTOR: PeriodicElement[] = [
+//   {
+//     'name': 'Health',
+//     'percent': 100
+//   },
+//   {
+//
+//     'name': 'Agricalture',
+//     'percent': 80
+//   },
+//   {
+//     'name': 'Economy',
+//     'percent': 88
+//   },
+//   {
+//
+//     'name': 'Administrative',
+//     'percent': 99
+//   }
+// ];
 
 @Component({
   selector: 'app-sector',
@@ -38,48 +45,41 @@ const ELEMENT_DATA_SECTOR: PeriodicElement[] = [
 })
 export class SectorComponent implements OnInit {
 
-  public sector: Sector;
+
+  @Input() sectorForm: FormGroup;
+  @Input() sectors: Sector[];
   public data: SendSectorData;
-  public sectorForm: FormGroup;
+  public dataSource: MatTableDataSource<Sector>;
+  public sectorList: Sector[] = [];
+
+  isReady = false;
+
 
   displayedColumns: string[] = ['name', 'percent'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_SECTOR);
+
   @ViewChild(MatSort) sort: MatSort;
 
 
-  public sectors: Sector[] = [
-    {
-      'id': 1,
-      'name': 'Health'
-    },
-    {
-      'id': 2,
-      'name': 'Agricalture'
-    },
-    {
-      'id': 3,
-      'name': 'Economy'
-    },
-    {
-      'id': 4,
-      'name': 'Administrative'
-    }
-  ];
-
-  constructor(public dialog: MatDialog, private fb: FormBuilder) {
+  constructor(private projectService: ImpProjectService) {
 
   }
 
   ngOnInit() {
-    this.sector = new Sector();
+    this.projectService.getSectors().subscribe(
+      sectors => {
+        this.sectorList = sectors;
+        this.isReady = true;
+      }
+    );
+    this.dataSource = new MatTableDataSource(this.sectors);
     this.dataSource.sort = this.sort;
 
-    this.sectorForm = this.fb.group({
-      sectorName: ['']
-    });
   }
 
+  public getSectorNameById(id: number): string {
+    return this.sectorList.find(el => el.id === id).name;
 
+  }
 
 
 }
