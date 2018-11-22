@@ -3,6 +3,7 @@ import {ImplementationStatus} from '../../shared/model/implementation-status.mod
 import {Project} from '../../shared/model/project.model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {start} from 'repl';
+import {MatDatepickerInputEvent} from '@angular/material';
 
 @Component({
   selector: 'app-sample',
@@ -55,20 +56,25 @@ export class SampleComponent implements OnInit {
   }
 
 
-
   ngOnInit() {
 
   }
 
+  t(event: MatDatepickerInputEvent<any>) {
+    alert(event.value);
+  }
 
   public calculationOfDuration(): number {
     if (this.project.plannedEndDate && this.project.plannedStartDate &&
-      (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) >= 0) {//24*60*60*1000
+      (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) >= 0
+    ) {//24*60*60*1000
       return +((this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) / 86400000).toFixed();
     }
     return null;
   }
 
+// || this.project.plannedStartDate.getTime() !== this.sampleForm.controls.projectStartDate.value ||
+//   this.project.plannedEndDate.getTime() !== this.sampleForm.controls.projectEndDate.value
   public dayOrDays(): boolean {
     if (this.calculationOfDuration() >= 0 && this.calculationOfDuration() < 10) {
       return true;

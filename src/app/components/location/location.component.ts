@@ -6,6 +6,9 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 import {MatDialog} from '@angular/material';
 import {FormGroup} from '@angular/forms';
 import {ImpProjectService} from '../../shared/service/imp-project.service';
+import {Sector} from '../../shared/model/sector.model';
+import {Observable, zip} from 'rxjs';
+import {Location} from '../../shared/model/location.model';
 
 
 export interface PeriodicElementLoc {
@@ -44,12 +47,16 @@ export class LocationComponent implements OnInit {
 
   public country: Country;
   public district: District;
+  @Input() locations: Location[];
   public data: SendLocationData;
   public countriesList: Country[];
   public districtList: District[];
+  public dataSource: MatTableDataSource<Location>;
+
+  isReady = false;
 
   displayedColumns: string[] = ['country', 'district', 'percent'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_LOC);
+
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(public dialog: MatDialog, private projectService: ImpProjectService) {
@@ -58,19 +65,15 @@ export class LocationComponent implements OnInit {
 
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
-    this.projectService.getCountries().subscribe(
-      countries => {
-        this.countriesList = countries;
-      }
-    );
-
-    this.projectService.getDistricts().subscribe(
-      districts => {
-        this.districtList = districts;
-      }
-    );
-
+    const countries$: Observable<any> = this.projectService.getCountries();
+    const districts$: Observable<any> = this.projectService.getDistricts();
+    zip(countries$, districts$).subscribe((res: any) => {
+      this.countriesList = res[0];
+      this.districtList = res[1];
+      this.isReady = true;
+    });
+    this.dataSource = new MatTableDataSource(this.locations);
+    // this.dataSource.sort = this.sort;
   }
 
   openLocationPopup(): void {
@@ -88,6 +91,13 @@ export class LocationComponent implements OnInit {
     });
   }
 
+  public getLocationCountryById(id: number): string {
+    return this.countriesList.find(el => el.id === id).name;
+  }
+
+  public getLocationDistrictById(id: number): string {
+    return this.districtList.find(el => el.id === id).name;
+  }
 
 }
 

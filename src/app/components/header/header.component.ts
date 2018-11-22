@@ -1,4 +1,7 @@
-import {Component, Directive} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {Router} from '@angular/router';
+import {ProjectService} from '../../shared/api/project.service';
+import {ImpProjectService} from '../../shared/service/imp-project.service';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +9,26 @@ import {Component, Directive} from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  constructor(private router: Router, private projectService: ImpProjectService) {
+  }
 
+  @Output() onCancel: EventEmitter<any> = new EventEmitter();
+  @Output() onSave: EventEmitter<any> = new EventEmitter();
+  @Output() onSaveAndClose: EventEmitter<any> = new EventEmitter();
+
+  cancel() {
+    this.onCancel.emit();
+  }
+
+  save() {
+    this.onSave.emit();
+  }
+
+  saveAndClose() {
+    this.onSaveAndClose.emit();
+  }
 
 
 }
+
+

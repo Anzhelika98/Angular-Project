@@ -5,7 +5,7 @@
   "description": "this is third ....",
   "implementationStatusId": 5,
   "plannedStartDate": 1461542400000,
-  "plannedEndDate": 1493078400000,
+  "plannedEndDate": 1482558500000,
   "sectors": [
     {
       "id": 4,
@@ -18,16 +18,22 @@
   ],
   "locations": [
     {
-      "id": 5,
-      "countryId": 1,
-      "districtId": 3,
+      "id": 9,
+      "countryId": 2,
+      "districtId": 5,
       "percent": 20
     },
     {
-      "id": 6,
-      "countryId": 2,
+      "id": 10,
+      "countryId": 3,
       "districtId": 8,
-      "percent": 80
+      "percent": 30
+    },
+    {
+      "id": 11,
+      "countryId": 3,
+      "districtId": 11,
+      "percent": 50
     }
   ]
 }

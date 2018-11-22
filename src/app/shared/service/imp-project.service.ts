@@ -1,4 +1,4 @@
-import {Observable, of, zip} from 'rxjs';
+import {from, Observable, of, zip} from 'rxjs';
 import {Project} from '../model/project.model';
 import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
@@ -14,6 +14,7 @@ import {District} from '../model/district.model';
 })
 export class ImpProjectService extends ProjectService {
 
+  private static id = 4;
 
   private _projects: Project[];
 
@@ -27,21 +28,29 @@ export class ImpProjectService extends ProjectService {
     return undefined;
   }
 
+  deleteProject(id: number): Observable<Project> {
+    return;
+  }
 
   getProjects(): Observable<Project[]> {
-    const projects: Observable<Project[]> = zip(
-      this.http.get<Project>('./src/app/shared/mock/project-1.json'),
-      this.http.get<Project>('./src/app/shared/mock/project-2.json'),
-      this.http.get<Project>('./src/app/shared/mock/project-3.json')
-    ).pipe(
-      tap(data => {
-        if (!this._projects) {
-          this._projects = <Project[]>data;
-        }
-      })
-    );
 
-    return projects;
+    if (!this._projects) {
+      const projects: Observable<Project[]> = zip(
+        this.http.get<Project>('./src/app/shared/mock/project-1.json'),
+        this.http.get<Project>('./src/app/shared/mock/project-2.json'),
+        this.http.get<Project>('./src/app/shared/mock/project-3.json')
+      ).pipe(
+        tap(data => {
+          if (!this._projects) {
+            this._projects = <Project[]>data;
+          }
+        })
+      );
+      return projects;
+    } else {
+      return of(this._projects);
+    }
+
   }
 
   getSectors(): Observable<Sector[]> {
@@ -56,13 +65,11 @@ export class ImpProjectService extends ProjectService {
     return this.http.get<District[]>('./src/app/shared/mock/district.json');
   }
 
-  deleteProject(id: number): Observable<Project> {
-    return;
-  }
 
   getProjectById(id: number): Observable<Project> {
     return this.http.get<Project>(`./src/app/shared/mock/project-${id}.json`);
   }
+
 
   get projects(): Project[] {
     return this._projects;
@@ -73,4 +80,11 @@ export class ImpProjectService extends ProjectService {
   }
 
 
+  save(project: Project): Observable<any> {
+    // save function
+    alert('saved');
+    return of({
+      success: true
+    });
+  }
 }

@@ -87,3 +87,15 @@ li:hover {
 .cancel:hover {
   color: #353535;
 }
+
+.edit{
+  font-size: 12px;
+  float: right;
+  margin-right:12px;
+  padding-top: 2px;
+  cursor: pointer;
+}
+
+.edit:hover{
+  color: #518416;
+}

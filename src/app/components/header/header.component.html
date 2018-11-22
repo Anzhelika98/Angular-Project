@@ -1,7 +1,7 @@
 <div class="bg-color">
   <div class="buttons">
-    <button class="cancel">CANCEL</button>
-    <!--<button type="submit" class="save"  [disabled]="!projectForm.form.valid">SAVE</button>-->
-    <button class="save-close">SAVE & CLOSE</button>
+    <button class="cancel" (click)="cancel()">CANCEL</button>
+    <button type="submit" class="save" (click)="save()">SAVE</button>
+    <button class="save-close" (click)="saveAndClose()">SAVE & CLOSE</button>
   </div>
 </div>

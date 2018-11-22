@@ -23,7 +23,7 @@ export interface PeriodicElementProject {
 })
 export class ProjectListComponent implements OnInit {
 
-  constructor(private projectService: ImpProjectService) {
+  constructor(private projectService: ImpProjectService, private router: Router) {
 
   }
 
@@ -33,8 +33,6 @@ export class ProjectListComponent implements OnInit {
   public projectInfo: PeriodicElementProject;
   public dataSource: MatTableDataSource<PeriodicElementProject>;
   public projectList: PeriodicElementProject[] = [];
-  public project$: Observable<Project>;
-  public selectedId: number;
   displayedColumns: string[] = ['id', 'name'];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -57,12 +55,9 @@ export class ProjectListComponent implements OnInit {
       error => console.error(error));
   }
 
-  // this.project$ = this.route.paramMap.pipe(
-  //   switchMap(params => {
-  //     this.selectedId = +params.get('id');
-  //     return this.service.getProjects().pipe();
-  //   }));
-
+  public goToNewProject() {
+    this.router.navigateByUrl(`projects/-1`);
+  }
 
   // public gotoProjects() {
   //   const projectId = this.project ? this.project.id : null;

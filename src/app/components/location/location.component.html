@@ -1,18 +1,18 @@
 <section class="location">
   <h2>Project Locations</h2>
-  <div class="location-content">
+  <div class="location-content" *ngIf="isReady">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
       <!-- Country Column -->
       <ng-container matColumnDef="country">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-        <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        <td mat-cell *matCellDef="let element"> {{getLocationCountryById(element.countryId)}} </td>
       </ng-container>
 
       <!-- District Column -->
       <ng-container matColumnDef="district">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> District </th>
-        <td mat-cell *matCellDef="let element"> {{element.district}} </td>
+        <td mat-cell *matCellDef="let element"> {{getLocationDistrictById(element.districtId)}} </td>
       </ng-container>
 
       <!-- Percent Column -->

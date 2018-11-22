@@ -18,16 +18,29 @@
   ],
   "locations": [
     {
-      "id": 3,
+      "id": 5,
       "countryId": 2,
       "districtId": 5,
       "percent": 20
     },
     {
-      "id": 4,
+      "id": 6,
       "countryId": 2,
       "districtId": 8,
-      "percent": 80
+      "percent": 30
+    },
+    {
+      "id": 7,
+      "countryId": 3,
+      "districtId": 10,
+      "percent": 25
+    },
+    {
+      "id": 8,
+      "countryId": 3,
+      "districtId": 12,
+      "percent": 25
     }
+
   ]
 }

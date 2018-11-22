@@ -1,7 +1,7 @@
 <section class="sector">
   <h2>Project Sectors</h2>
   <div class="sector-content" *ngIf="isReady">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z8">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -21,8 +21,8 @@
     </table>
     <div class="sector-select">
       <mat-form-field>
-        <mat-select placeholder="-select-"  name="status">
-          <mat-option *ngFor="let sector of sectorList" [value]="sector.name">
+        <mat-select placeholder="-select-" name="status" [(value)]="selectedSectorId">
+          <mat-option *ngFor="let sector of sectorList" [value]="sector.id">
             {{sector.name}}
           </mat-option>
         </mat-select>
@@ -31,12 +31,12 @@
 
     <div class="input" [formGroup]="sectorForm">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="" formControlName="sectorName">
+        <input matInput placeholder="%" formControlName="sectorPercent">
       </mat-form-field>
     </div>
 
     <div class="add">
-      <button mat-button>ADD</button>
+      <button mat-button  (click)="addSector()" >ADD</button>
     </div>
   </div>
 </section>

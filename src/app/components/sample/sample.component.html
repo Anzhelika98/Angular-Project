@@ -45,23 +45,21 @@
     <div class="status-date">
       <div class="date">
         <div class="start">
-          <mat-form-field>
+          <mat-form-field >
             <input matInput [matDatepicker]="start" placeholder="Planned Start Date"
-                   [value]="project.plannedStartDate"
-                   name="start"   formControlName="projectStartDate">
+                   name="start"   formControlName="projectStartDate" (dateChange)="t($event)">
 
             <mat-error>
               Planned Start Date is required
             </mat-error>
-            <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-            <mat-datepicker #start startView="month" [startAt]="project.plannedStartDate"></mat-datepicker>
+            <mat-datepicker-toggle matSuffix [for]="start" ></mat-datepicker-toggle>
+            <mat-datepicker #start startView="month" [startAt]="project.plannedStartDate" ></mat-datepicker>
           </mat-form-field>
         </div>
 
         <div class="end">
           <mat-form-field>
             <input matInput [matDatepicker]="end" placeholder="Planned End Date"
-                   [value]="project.plannedEndDate"
                    name="end" formControlName="projectEndDate">
             <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
             <mat-datepicker #end startView="month" [startAt]="project.plannedEndDate"></mat-datepicker>
