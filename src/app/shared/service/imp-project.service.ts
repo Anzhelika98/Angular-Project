@@ -7,6 +7,7 @@ import {ProjectService} from '../api/project.service';
 import {Sector} from '../model/sector.model';
 import {Country} from '../model/country.model';
 import {District} from '../model/district.model';
+import {element} from 'protractor';
 
 
 @Injectable({
@@ -15,7 +16,6 @@ import {District} from '../model/district.model';
 export class ImpProjectService extends ProjectService {
 
   private static id = 4;
-
   private _projects: Project[];
 
 
@@ -23,17 +23,7 @@ export class ImpProjectService extends ProjectService {
     super();
   }
 
-  createProject(): Observable<Project> {
-
-    return undefined;
-  }
-
-  deleteProject(id: number): Observable<Project> {
-    return;
-  }
-
   getProjects(): Observable<Project[]> {
-
     if (!this._projects) {
       const projects: Observable<Project[]> = zip(
         this.http.get<Project>('./src/app/shared/mock/project-1.json'),
@@ -50,7 +40,6 @@ export class ImpProjectService extends ProjectService {
     } else {
       return of(this._projects);
     }
-
   }
 
   getSectors(): Observable<Sector[]> {
@@ -65,8 +54,14 @@ export class ImpProjectService extends ProjectService {
     return this.http.get<District[]>('./src/app/shared/mock/district.json');
   }
 
-
   getProjectById(id: number): Observable<Project> {
+    let project;
+    if (this.projects) {
+      project = this.projects.find(item => item.id === id);
+    }
+    if (project) {
+      return of(project);
+    }
     return this.http.get<Project>(`./src/app/shared/mock/project-${id}.json`);
   }
 
@@ -75,16 +70,44 @@ export class ImpProjectService extends ProjectService {
     return this._projects;
   }
 
-  set projects(value: Project[]) {
-    this._projects = value;
-  }
 
-
-  save(project: Project): Observable<any> {
-    // save function
-    alert('saved');
+  saveProject(project: Project): Observable<any> {
+    if (project && project.title && project.code) {
+      if (project.id) {
+        let index = this.projects.findIndex(el => el.id === project.id);
+        this.projects[index] = project;
+        return of({
+          success: true
+        });
+      } else {
+        project.id = ImpProjectService.id++;
+        this._projects.push(project);
+        return of({
+          success: true
+        });
+      }
+    }
     return of({
-      success: true
+      success: false
     });
+
+
   }
+
+  deleteProject(id: number): Observable<any> {
+    const index = this.projects.findIndex(el => el.id === id);
+    if (index > -1) {
+      this.projects.splice(index, 1);
+      return of({
+        success: true
+      });
+    }
+    return of({
+      success: false,
+      message: 'no such project'
+    });
+
+
+  }
+
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProjectService} from '../../shared/api/project.service';
 import {ImpProjectService} from '../../shared/service/imp-project.service';
@@ -9,7 +9,7 @@ import {ImpProjectService} from '../../shared/service/imp-project.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private router: Router, private projectService: ImpProjectService) {
+  constructor() {
   }
 
   @Output() onCancel: EventEmitter<any> = new EventEmitter();

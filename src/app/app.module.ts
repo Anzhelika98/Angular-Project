@@ -10,7 +10,7 @@ import {SectorComponent} from './components/sector/sector.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  ErrorStateMatcher,
+
   MatButtonModule, MatDialogModule,
   MatInputModule,
   MatNativeDateModule, MatProgressSpinnerModule,
@@ -24,9 +24,9 @@ import {ProjectListComponent} from './components/projectList/project-list.compon
 import {ProjectComponent} from './components/project/project.component';
 import {ProjectService} from './shared/api/project.service';
 import {ImpProjectService} from './shared/service/imp-project.service';
-import {RouterModule} from '@angular/router';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import {AppRoutingModules} from './app-routing.modules';
+import {ProjectEditComponent} from './components/projectEdit/project-edit.component';
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import {AppRoutingModules} from './app-routing.modules';
     SectorComponent,
     LocationPopupComponent,
     ProjectListComponent,
-    ProjectComponent
+    ProjectComponent,
+    ProjectEditComponent
   ],
   imports: [
     BrowserModule,

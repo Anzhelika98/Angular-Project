@@ -1,8 +1,7 @@
-import {Component, Directive, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ImplementationStatus} from '../../shared/model/implementation-status.model';
 import {Project} from '../../shared/model/project.model';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {start} from 'repl';
+import {FormGroup} from '@angular/forms';
 import {MatDatepickerInputEvent} from '@angular/material';
 
 @Component({
@@ -14,6 +13,8 @@ export class SampleComponent implements OnInit {
 
   @Input() project: Project;
   @Input() sampleForm: FormGroup;
+
+  public dateIsChanged = false;
 
   public statuses: ImplementationStatus[] = [
     {
@@ -51,7 +52,7 @@ export class SampleComponent implements OnInit {
   ];
 
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
 
   }
 
@@ -60,21 +61,22 @@ export class SampleComponent implements OnInit {
 
   }
 
-  t(event: MatDatepickerInputEvent<any>) {
+  changingDataCalculation(event: MatDatepickerInputEvent<any>) {
     alert(event.value);
+    this.dateIsChanged = true;
+    return (((this.project.plannedEndDate.getTime() - event.value.getTime()) / 86400000).toFixed());
   }
 
   public calculationOfDuration(): number {
     if (this.project.plannedEndDate && this.project.plannedStartDate &&
       (this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) >= 0
-    ) {//24*60*60*1000
+    ) {// 24*60*60*1000
       return +((this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) / 86400000).toFixed();
     }
     return null;
   }
 
-// || this.project.plannedStartDate.getTime() !== this.sampleForm.controls.projectStartDate.value ||
-//   this.project.plannedEndDate.getTime() !== this.sampleForm.controls.projectEndDate.value
+
   public dayOrDays(): boolean {
     if (this.calculationOfDuration() >= 0 && this.calculationOfDuration() < 10) {
       return true;

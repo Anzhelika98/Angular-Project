@@ -1,12 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ProjectService} from '../../shared/api/project.service';
 import {Project} from '../../shared/model/project.model';
-import {switchMap} from 'rxjs/operators';
+import {switchMap, tap} from 'rxjs/operators';
 import {ImpProjectService} from '../../shared/service/imp-project.service';
 import {element} from 'protractor';
-import {Observable} from 'rxjs';
+import {Observable, pipe} from 'rxjs';
 
 
 export interface PeriodicElementProject {
@@ -31,15 +31,20 @@ export class ProjectListComponent implements OnInit {
   public data: ProjectDto;
   public project: Project;
   public projectInfo: PeriodicElementProject;
-  public dataSource: MatTableDataSource<PeriodicElementProject>;
-  public projectList: PeriodicElementProject[] = [];
-  displayedColumns: string[] = ['id', 'name'];
+  @Input() projectList: PeriodicElementProject[] = [];
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
+    document.title = 'Projects';
+
+    this.getProjectList();
+
+  }
+
+  public getProjectList() {
     this.projectService.getProjects().subscribe(projects => {
-        this.projectService.projects = projects;
+        this.projectList = [];
         for (const project of projects) {
           this.projectInfo = {
             'id': project['id'],
@@ -48,15 +53,27 @@ export class ProjectListComponent implements OnInit {
 
           this.projectList.push(this.projectInfo);
         }
-        this.dataSource = new MatTableDataSource(this.projectList);
-        this.dataSource.sort = this.sort;
-
       },
-      error => console.error(error));
+      error => console.error(error)
+    );
   }
 
   public goToNewProject() {
     this.router.navigateByUrl(`projects/-1`);
+  }
+
+
+  public deleteProject(id: number) {
+    this.projectService.deleteProject(id).subscribe(
+      response => {
+        if (response.success) {
+          this.getProjectList();
+        } else {
+          alert('don\'t deleted');
+        }
+      }
+    );
+
   }
 
   // public gotoProjects() {

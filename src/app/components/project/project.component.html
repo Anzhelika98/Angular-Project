@@ -1,7 +1,6 @@
-<form [formGroup]="projectForm" *ngIf="isReady">
-  <app-header (onCancel)="canceled()" (onSave)="confirmed(false)" (onSaveAndClose)="confirmed(true)"></app-header>
+<form [formGroup]="projectForm">
   <app-sample [project]="project" [sampleForm]="projectForm.controls.sampleForm"></app-sample>
-  <app-sector [sectors]="project.sectors" [sectorForm]="projectForm.controls.sectorForm" ></app-sector>
+  <app-sector [sectors]="project.sectors" [sectorForm]="projectForm.controls.sectorForm"></app-sector>
   <app-location [locations]="project.locations" [locationForm]="projectForm.controls.locationForm"></app-location>
 </form>
 

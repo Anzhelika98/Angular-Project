@@ -19,12 +19,15 @@ export class SectorComponent implements OnInit {
 
   public data: SendSectorData;
   public dataSource: MatTableDataSource<any>;
-  public sectorList: Sector[] = [];
+  public unusedSectorList: Sector[] = [];
+  private allSectors: Sector[] = [];
   public selectedSectorId: number;
+  private percentSum = 0;
+  public status = false;
 
 
   isReady = false;
-  displayedColumns: string[] = ['name', 'percent'];
+  displayedColumns: string[] = ['name', 'percent', 'delete'];
 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -34,10 +37,13 @@ export class SectorComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.projectService.getSectors().subscribe(
       sectors => {
-        this.sectorList = sectors;
         this.isReady = true;
+        this.allSectors = sectors;
+        this.initUnusedSectors();
+
       }
     );
     this.dataSource = new MatTableDataSource(this.sectors);
@@ -46,20 +52,57 @@ export class SectorComponent implements OnInit {
   }
 
   public getSectorNameById(id: number): string {
-    return this.sectorList.find(el => el.id === id).name;
+    let sector = this.allSectors.find(el => el.id === id);
+    return sector.name;
+
   }
 
-  public addSector() {
-    const sector = this.sectorForm.controls.sectorPercent;
-    if (sector.value && this.selectedSectorId) {
-      this.dataSource.data = [...this.dataSource.data, {'id': this.selectedSectorId, 'percent': sector.value}];
+  public addSector(): void {
+    const percent = this.sectorForm.controls.percent;
+    const perSum = this.percentSum;
+    if (percent.value && this.selectedSectorId) {
+      this.percentSum += +percent.value;
+      if (this.percentSum <= 100) {
+        if (!this.dataSource.data) {
+          this.dataSource.data = [{'sectorId': this.selectedSectorId, 'percent': percent.value}];
+        } else {
+          this.dataSource.data = [...this.dataSource.data, {'sectorId': this.selectedSectorId, 'percent': percent.value}];
+        }
+        this.selectedSectorId = null;
+        this.initUnusedSectors();
+        percent.reset();
+        this.status = false;
+      } else {
+        this.percentSum = perSum;
+        this.status = true;
+      }
     }
 
-    this.selectedSectorId = null;
-    sector.reset();
+  }
+
+  public deleteSectorRow(id: number) {
+    const index = this.dataSource.data.findIndex(elem => elem.sectorId === id);
+    this.dataSource.data.splice(index, 1);
+    this.initUnusedSectors();
+    this.dataSource.data = [...this.dataSource.data];
   }
 
 
+  private initUnusedSectors() {
+    this.unusedSectorList = [];
+    this.percentSum = 0;
+    loop: for (let usedSector of this.allSectors) {
+      if (this.dataSource.data) {
+        for (let sector of this.dataSource.data) {
+          if (sector.sectorId === usedSector.id) {
+            this.percentSum += +sector.percent;
+            continue loop;
+          }
+        }
+      }
+      this.unusedSectorList.push(usedSector);
+    }
+  }
 }
 
 export interface SendSectorData {

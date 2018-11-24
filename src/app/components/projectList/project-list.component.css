@@ -74,28 +74,17 @@ li:hover {
   color: yellowgreen;
 }
 
-.cancel {
-  font-size: 35px;
-  float: right;
+.edit-delete {
   display: inline-block;
-  cursor: pointer;
-  transform: rotate(45deg);
-  margin-top: -13px;
-  color: #7b7b7a;
-}
-
-.cancel:hover {
-  color: #353535;
-}
-
-.edit{
-  font-size: 12px;
   float: right;
-  margin-right:12px;
-  padding-top: 2px;
   cursor: pointer;
 }
 
-.edit:hover{
+.edit-delete i {
+  padding-left: 8px;
+
+}
+
+.edit-delete i:hover {
   color: #518416;
 }

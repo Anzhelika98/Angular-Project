@@ -1,10 +1,9 @@
-
-<section class="sample-container" >
+<section class="sample-container">
   <h2>Sample</h2>
   <div class="content" [formGroup]="sampleForm">
     <div class="code">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Project Code" formControlName="projectCode"
+        <input matInput placeholder="Project Code" formControlName="code"
                name="projectCode" [value]="project.code">
         <mat-error>
           Project code is required
@@ -12,26 +11,26 @@
       </mat-form-field>
     </div>
     <div class="title">
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Project Title"
-                 [value]="project.title"  formControlName="projectTitle">
-          <mat-error>
-            Project title is required
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Project Title"
+               [value]="project.title" formControlName="title">
+        <mat-error>
+          Project title is required
+        </mat-error>
+      </mat-form-field>
     </div>
     <div class="description">
       <mat-form-field>
-        <textarea matInput placeholder="Textarea" name="description"  [value]="project.description"
-                  formControlName="projectDescription"></textarea>
+        <textarea matInput placeholder="Textarea" name="description" [value]="project.description"
+                  formControlName="description"></textarea>
       </mat-form-field>
     </div>
 
     <div class="status">
       <mat-form-field>
-        <mat-select placeholder="-select-" name="status"
+        <mat-select placeholder="Implementation Status" name="status"
                     [value]="project.implementationStatusId"
-                    formControlName="projectImplementationStatus">
+                    formControlName="implementationStatus">
           <mat-option *ngFor="let status of statuses" [value]="status.id">
             {{status.name}}
           </mat-option>
@@ -45,30 +44,30 @@
     <div class="status-date">
       <div class="date">
         <div class="start">
-          <mat-form-field >
+          <mat-form-field>
             <input matInput [matDatepicker]="start" placeholder="Planned Start Date"
-                   name="start"   formControlName="projectStartDate" (dateChange)="t($event)">
+                   name="start" formControlName="startDate" (dateChange)="changingDataCalculation($event)">
 
             <mat-error>
               Planned Start Date is required
             </mat-error>
-            <mat-datepicker-toggle matSuffix [for]="start" ></mat-datepicker-toggle>
-            <mat-datepicker #start startView="month" [startAt]="project.plannedStartDate" ></mat-datepicker>
+            <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+            <mat-datepicker #start startView="month" [startAt]="project.plannedStartDate"></mat-datepicker>
           </mat-form-field>
         </div>
 
         <div class="end">
           <mat-form-field>
             <input matInput [matDatepicker]="end" placeholder="Planned End Date"
-                   name="end" formControlName="projectEndDate">
+                   name="end" formControlName="endDate">
             <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
             <mat-datepicker #end startView="month" [startAt]="project.plannedEndDate"></mat-datepicker>
           </mat-form-field>
         </div>
 
-        <div class="duration">
+        <div class="duration" >
           <label for="duration">Duration</label>
-          <p id="duration" *ngIf="dayOrDays();else days">
+          <p id="duration" *ngIf="dayOrDays();else days" >
             {{calculationOfDuration()}} day
           </p>
           <ng-template #days>

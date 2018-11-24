@@ -14,12 +14,14 @@ h2 {
   color: #383737d1;
   font-weight: 500;
 }
-.sector-content{
+
+.sector-content {
   padding-top: 47px;
   padding-bottom: 25px;
   margin: 12px 18px;
 }
-.add{
+
+.add {
   border: 0;
   width: 65px;
   height: 36px;
@@ -34,22 +36,34 @@ h2 {
   border-radius: 3px;
   display: inline-block;
 
-
 }
 
-.sector-select{
+.sector-select {
   float: left;
 }
 
-.input{
+.input {
   margin-left: 85px;
   display: inline-block;
 
 }
+
 table {
   width: 100%;
 }
 
 th.mat-sort-header-sorted {
   color: black;
+}
+
+.percent-info {
+  color: palevioletred;
+}
+
+.material-icons {
+  cursor: pointer;
+}
+
+.material-icons:hover {
+  color: #838383;
 }

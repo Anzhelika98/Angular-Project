@@ -8,12 +8,14 @@
   "plannedEndDate": 1527206400000,
   "sectors": [
     {
-      "id": 4,
+      "id": 3,
+      "sectorId": 4,
       "percent": 30
     },
     {
-      "id":1,
-      "percent": 70
+      "id": 4,
+      "sectorId": 1,
+      "percent": 30
     }
   ],
   "locations": [
