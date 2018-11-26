@@ -6,7 +6,6 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 import {MatDialog} from '@angular/material';
 import {FormGroup} from '@angular/forms';
 import {ImpProjectService} from '../../shared/service/imp-project.service';
-import {Sector} from '../../shared/model/sector.model';
 import {Observable, zip} from 'rxjs';
 import {Location} from '../../shared/model/location.model';
 
@@ -51,12 +50,11 @@ export class LocationComponent implements OnInit {
   public data: SendLocationData;
   public countriesList: Country[];
   public districtList: District[];
-  public dataSource: MatTableDataSource<Location>;
+  public dataSource: MatTableDataSource<any>;
 
   isReady = false;
 
   displayedColumns: string[] = ['country', 'district', 'percent'];
-
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(public dialog: MatDialog, private projectService: ImpProjectService) {
@@ -74,6 +72,8 @@ export class LocationComponent implements OnInit {
     });
     this.dataSource = new MatTableDataSource(this.locations);
     // this.dataSource.sort = this.sort;
+
+
   }
 
   openLocationPopup(): void {
@@ -87,6 +87,7 @@ export class LocationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+
       this.data = result;
     });
   }
@@ -98,6 +99,7 @@ export class LocationComponent implements OnInit {
   public getLocationDistrictById(id: number): string {
     return this.districtList.find(el => el.id === id).name;
   }
+
 
 }
 

@@ -44,10 +44,12 @@ export class SectorComponent implements OnInit {
         this.allSectors = sectors;
         this.initUnusedSectors();
 
+
       }
     );
     this.dataSource = new MatTableDataSource(this.sectors);
-    // this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;
+
 
   }
 
@@ -65,8 +67,10 @@ export class SectorComponent implements OnInit {
       if (this.percentSum <= 100) {
         if (!this.dataSource.data) {
           this.dataSource.data = [{'sectorId': this.selectedSectorId, 'percent': percent.value}];
+          this.dataSource.sort = this.sort;
         } else {
           this.dataSource.data = [...this.dataSource.data, {'sectorId': this.selectedSectorId, 'percent': percent.value}];
+          this.dataSource.sort = this.sort;
         }
         this.selectedSectorId = null;
         this.initUnusedSectors();

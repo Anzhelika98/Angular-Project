@@ -31,18 +31,19 @@ export class ProjectEditComponent implements OnInit {
   }
 
   confirmed(close: boolean) {
-    this.setProjectValues()
-    this.projectService.saveProject(this.project)
-      .subscribe(
-        response => {
-          if (response.success) {
-            if (close) {
-              this.goBack();
+    this.setProjectValues();
+    if (this.project.code && this.project.code.trim() && this.project.title && this.project.title.trim()) {
+      this.projectService.saveProject(this.project)
+        .subscribe(
+          response => {
+            if (response.success) {
+              if (close) {
+                this.goBack();
+              }
             }
           }
-        }
-      )
-    ;
+        );
+    }
   }
 
 
@@ -51,6 +52,7 @@ export class ProjectEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.projectService.projects) this.getProjectList();
     const id = +this.route.snapshot.paramMap.get('id');
     if (id > 0) {
       this.project$ = this.projectService.getProjectById(id);
@@ -84,24 +86,34 @@ export class ProjectEditComponent implements OnInit {
         title: [this.project.title, Validators.required],
         description: [this.project.implementationStatusId],
         implementationStatus: [this.project.implementationStatusId],
-        startDate: [this.project.plannedStartDate, Validators.required],
+        startDate: [this.project.plannedStartDate/*, Validators.required*/],
         endDate: [this.project.plannedEndDate],
       }),
       sectorForm: this.fb.group({
         select: null,
         percent: null
-      }),
-      locationForm: this.fb.group({
-        country: [null, Validators.required],
-        district: [null, Validators.required],
-        percent: null
       })
     });
   }
 
-
+  /**
+   * converting
+   */
   private setProjectValues() {
     this.project.code = this.projectForm.value.sampleForm.code;
     this.project.title = this.projectForm.value.sampleForm.title;
+    this.project.description = this.projectForm.value.sampleForm.description;
+    this.project.implementationStatusId = this.projectForm.value.sampleForm.implementationStatusId;
+    this.project.plannedStartDate = this.projectForm.value.sampleForm.plannedStartDate;
+    this.project.plannedEndDate = this.projectForm.value.sampleForm.plannedEndDate;
+  }
+
+
+  public getProjectList() {
+    this.projectService.getProjects().subscribe();
+  }
+
+  formIsValid() {
+    return this.projectForm.valid;
   }
 }

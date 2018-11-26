@@ -1,10 +1,10 @@
-<form [formGroup]="data.locationForm">
-  <div class="popup">
+<form [formGroup]="locationForm">
+  <div class="popup" >
     <h1 mat-dialog-title>Add project location</h1>
     <div mat-dialog-content>
       <mat-form-field>
-        <mat-select placeholder="Country * " name="country" formControlName="country">
-          <mat-option *ngFor="let country of countriesList" [value]="country.name" >
+        <mat-select placeholder="Country" formControlName="country" required (valueChange)="filterDistrict($event)" [(value)]="selectedCountryId">
+          <mat-option *ngFor="let country of countriesList"  [value]="country.id">
             {{country.name}}
           </mat-option>
         </mat-select>
@@ -14,8 +14,8 @@
       </mat-form-field>
 
       <mat-form-field >
-        <mat-select placeholder="District * " name="district" formControlName="district">
-          <mat-option *ngFor="let district of districtList" [value]="district.name" >
+        <mat-select placeholder="District" name="district" formControlName="district" required [(value)]="selectedDistrictId">
+          <mat-option *ngFor="let district of districtsByCountryId"  [value]="district.id">
             {{district.name}}
           </mat-option>
         </mat-select>
@@ -31,8 +31,8 @@
 
     </div>
     <div mat-dialog-actions>
-      <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-      <button mat-button [mat-dialog-close]="country.name" FocusInitial>Ok</button>
+      <button mat-button mat-dialog-close FocusInitial (click)="addLocation()">Ok</button>
+      <button type="button" mat-button (click)="onNoClick()">Cancel</button>
     </div>
   </div>
 </form>

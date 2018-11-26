@@ -1,4 +1,5 @@
-<app-header (onCancel)="canceled()"
+<app-header [disableButtons]="!formIsValid()"
+            (onCancel)="canceled()"
             (onSave)="confirmed(false)"
             (onSaveAndClose)="confirmed(true)"></app-header>
 <app-project [project]="project" [projectForm]="projectForm" *ngIf="isReady"></app-project>

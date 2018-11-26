@@ -1,7 +1,7 @@
 <div class="bg-color">
   <div class="buttons">
     <button class="cancel" (click)="cancel()">CANCEL</button>
-    <button type="submit" class="save" (click)="save()">SAVE</button>
-    <button class="save-close" (click)="saveAndClose()">SAVE & CLOSE</button>
+    <button mat-raised-button color="primary" type="submit" (click)="save()" [disabled]="disableButtons" class="save">SAVE</button>
+    <button mat-raised-button color="primary" (click)="saveAndClose()" [disabled]="disableButtons">SAVE & CLOSE</button>
   </div>
 </div>

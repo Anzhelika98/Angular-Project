@@ -14,8 +14,6 @@ export class SampleComponent implements OnInit {
   @Input() project: Project;
   @Input() sampleForm: FormGroup;
 
-  public dateIsChanged = false;
-
   public statuses: ImplementationStatus[] = [
     {
       'id': 1,
@@ -53,19 +51,29 @@ export class SampleComponent implements OnInit {
 
 
   constructor() {
-
   }
 
+  public changingEndDate = false;
+  public duration: number;
 
   ngOnInit() {
+  }
+
+  changingStartDateCalculation(event: MatDatepickerInputEvent<any>) {
+    this.project.plannedStartDate = event.value;
+    return this.calculationOfDuration();
+  }
+
+
+  changingEndDateCalculation(event: MatDatepickerInputEvent<any>) {
+
+
+    this.project.plannedEndDate = event.value;
+    return this.calculationOfDuration();
+
 
   }
 
-  changingDataCalculation(event: MatDatepickerInputEvent<any>) {
-    alert(event.value);
-    this.dateIsChanged = true;
-    return (((this.project.plannedEndDate.getTime() - event.value.getTime()) / 86400000).toFixed());
-  }
 
   public calculationOfDuration(): number {
     if (this.project.plannedEndDate && this.project.plannedStartDate &&
@@ -73,12 +81,17 @@ export class SampleComponent implements OnInit {
     ) {// 24*60*60*1000
       return +((this.project.plannedEndDate.getTime() - this.project.plannedStartDate.getTime()) / 86400000).toFixed();
     }
+    if (this.project.plannedStartDate > this.project.plannedEndDate) {
+      this.changingEndDate = true;
+    }
     return null;
   }
 
 
+
   public dayOrDays(): boolean {
-    if (this.calculationOfDuration() >= 0 && this.calculationOfDuration() < 10) {
+    this.duration = this.calculationOfDuration();
+    if (this.duration >= 0 && this.duration < 10) {
       return true;
     }
   }

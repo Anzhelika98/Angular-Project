@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
@@ -60,7 +60,8 @@ import {ProjectEditComponent} from './components/projectEdit/project-edit.compon
 
   ],
   providers: [
-    {provide: ProjectService, useClass: ImpProjectService}
+    {provide: ProjectService, useClass: ImpProjectService},
+    Title
   ],
   entryComponents: [LocationPopupComponent],
   bootstrap: [AppComponent]

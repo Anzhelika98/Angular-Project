@@ -2,7 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Country} from '../../shared/model/country.model';
 import {District} from '../../shared/model/district.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ImpProjectService} from '../../shared/service/imp-project.service';
 
 
@@ -12,18 +12,24 @@ import {ImpProjectService} from '../../shared/service/imp-project.service';
 })
 export class LocationPopupComponent implements OnInit {
 
-  @Input() locationForm: FormGroup;
+  public locationForm: FormGroup;
   public countriesList: Country[];
   public districtList: District[];
-  public country: Country;
-  public district: District;
+  public districtsByCountryId: any[];
+  public selectedCountryId: number;
+  public selectedDistrictId: number;
 
   constructor(
     public dialogRef: MatDialogRef<LocationPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: LocationPopupData,
-    private projectService: ImpProjectService) {
-    this.country = new Country();
-    this.district = new District();
+    private projectService: ImpProjectService,
+    private fb: FormBuilder) {
+
+    this.locationForm = this.fb.group({
+      country: [null/*, Validators.required*/],
+      district: [null/*, Validators.required*/],
+      percent: null
+    });
 
   }
 
@@ -46,6 +52,16 @@ export class LocationPopupComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  public filterDistrict(e: any) {
+    this.districtsByCountryId = this.districtList.filter((el) => el.countryId === e);
+  }
+
+  public addLocation() {
+
+    const percent = this.locationForm.value.percent;
+    // this.data = [{'countryId': this.selectedCountryId, 'districtId': this.selectedDistrictId, 'percent': percent}];
+
+  }
 
 }
 

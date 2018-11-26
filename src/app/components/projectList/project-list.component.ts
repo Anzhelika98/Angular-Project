@@ -7,6 +7,7 @@ import {switchMap, tap} from 'rxjs/operators';
 import {ImpProjectService} from '../../shared/service/imp-project.service';
 import {element} from 'protractor';
 import {Observable, pipe} from 'rxjs';
+import {Title} from '@angular/platform-browser';
 
 
 export interface PeriodicElementProject {
@@ -23,7 +24,7 @@ export interface PeriodicElementProject {
 })
 export class ProjectListComponent implements OnInit {
 
-  constructor(private projectService: ImpProjectService, private router: Router) {
+  constructor(private projectService: ImpProjectService, private router: Router, private title: Title) {
 
   }
 
@@ -41,6 +42,11 @@ export class ProjectListComponent implements OnInit {
     this.getProjectList();
 
   }
+
+
+  // public setTitle(newTitle: string) {
+  //   this.title.setTitle(newTitle);
+  // }
 
   public getProjectList() {
     this.projectService.getProjects().subscribe(projects => {
