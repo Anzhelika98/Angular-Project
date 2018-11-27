@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Project} from '../../shared/model/project.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-project-edit',
@@ -15,13 +16,13 @@ export class ProjectEditComponent implements OnInit {
   public projectForm: FormGroup;
   public project: Project;
   private project$: Observable<Project>;
-
   public isReady = false;
 
   constructor(private projectService: ImpProjectService,
               private router: Router,
               private route: ActivatedRoute,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private title: Title) {
   }
 
 
@@ -70,13 +71,17 @@ export class ProjectEditComponent implements OnInit {
           this.project.locations = project.locations;
           this.initFormGroup();
           this.isReady = true;
-          document.title = this.project.title;
+          this.setTitle(this.project.title);
         });
     } else {
       this.project = new Project();
       this.initFormGroup();
       this.isReady = true;
     }
+  }
+
+  public setTitle(newTitle: string) {
+    this.title.setTitle(newTitle);
   }
 
   initFormGroup() {
@@ -90,7 +95,7 @@ export class ProjectEditComponent implements OnInit {
         endDate: [this.project.plannedEndDate],
       }),
       sectorForm: this.fb.group({
-        select: null,
+        name: null,
         percent: null
       })
     });
@@ -103,9 +108,10 @@ export class ProjectEditComponent implements OnInit {
     this.project.code = this.projectForm.value.sampleForm.code;
     this.project.title = this.projectForm.value.sampleForm.title;
     this.project.description = this.projectForm.value.sampleForm.description;
-    this.project.implementationStatusId = this.projectForm.value.sampleForm.implementationStatusId;
-    this.project.plannedStartDate = this.projectForm.value.sampleForm.plannedStartDate;
-    this.project.plannedEndDate = this.projectForm.value.sampleForm.plannedEndDate;
+    this.project.implementationStatusId = this.projectForm.value.sampleForm.implementationStatus;
+    this.project.plannedStartDate = this.projectForm.value.sampleForm.startDate;
+    this.project.plannedEndDate = this.projectForm.value.sampleForm.endDate;
+
   }
 
 
@@ -114,6 +120,9 @@ export class ProjectEditComponent implements OnInit {
   }
 
   formIsValid() {
-    return this.projectForm.valid;
+    if (this.projectForm) {
+      return this.projectForm.valid;
+    }
+    return null;
   }
 }

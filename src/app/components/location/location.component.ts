@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {Country} from '../../shared/model/country.model';
 import {District} from '../../shared/model/district.model';
 import {LocationPopupComponent} from './location-popup.component';
@@ -9,31 +9,6 @@ import {ImpProjectService} from '../../shared/service/imp-project.service';
 import {Observable, zip} from 'rxjs';
 import {Location} from '../../shared/model/location.model';
 
-
-export interface PeriodicElementLoc {
-  country: string;
-  district: string;
-  percent: number;
-}
-
-const ELEMENT_DATA_LOC: PeriodicElementLoc[] = [
-  {
-    'country': 'Artsakh',
-    'district': 'Martakaert',
-    'percent': 50
-  },
-  {
-    'country': 'Erevan',
-    'district': 'Syunik',
-    'percent': 88
-  },
-  {
-    'country': 'Artsakh',
-    'district': 'Martuni',
-    'percent': 56
-  }
-
-];
 
 @Component({
   selector: 'app-location',
@@ -63,17 +38,25 @@ export class LocationComponent implements OnInit {
 
 
   ngOnInit() {
+
     const countries$: Observable<any> = this.projectService.getCountries();
     const districts$: Observable<any> = this.projectService.getDistricts();
     zip(countries$, districts$).subscribe((res: any) => {
-      this.countriesList = res[0];
-      this.districtList = res[1];
-      this.isReady = true;
-    });
-    this.dataSource = new MatTableDataSource(this.locations);
-    // this.dataSource.sort = this.sort;
+        this.countriesList = res[0];
+        this.districtList = res[1];
+        this.isReady = true;
+      },
+      (error) => console.log(error),
+      () => this.initSort()
+    );
 
 
+  }
+
+
+  initSort() {
+    this.dataSource = new MatTableDataSource(this.locations ? this.locations : []);
+    this.dataSource.sort = this.sort;
   }
 
   openLocationPopup(): void {
@@ -87,8 +70,9 @@ export class LocationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-
+      this.addLocation(result);
       this.data = result;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -98,6 +82,13 @@ export class LocationComponent implements OnInit {
 
   public getLocationDistrictById(id: number): string {
     return this.districtList.find(el => el.id === id).name;
+  }
+
+  public addLocation(location: Location) {
+    this.dataSource.data.push(location);
+    this.dataSource = new MatTableDataSource(<any>this.dataSource.data);
+
+
   }
 
 

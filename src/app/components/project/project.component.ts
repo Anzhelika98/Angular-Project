@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Project} from '../../shared/model/project.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ImpProjectService} from '../../shared/service/imp-project.service';
+import {Sector} from '../../shared/model/sector.model';
 
 
 @Component({
@@ -17,10 +18,12 @@ export class ProjectComponent implements OnInit {
   @Input() project: Project;
 
 
+
   constructor() {
   }
 
   ngOnInit() {
+
 
 
   }

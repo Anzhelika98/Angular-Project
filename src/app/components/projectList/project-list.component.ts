@@ -28,25 +28,22 @@ export class ProjectListComponent implements OnInit {
 
   }
 
-
   public data: ProjectDto;
   public project: Project;
   public projectInfo: PeriodicElementProject;
-  @Input() projectList: PeriodicElementProject[] = [];
+  projectList: PeriodicElementProject[] = [];
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    document.title = 'Projects';
-
+    this.setTitle('Projects');
     this.getProjectList();
-
   }
 
 
-  // public setTitle(newTitle: string) {
-  //   this.title.setTitle(newTitle);
-  // }
+  public setTitle(newTitle: string) {
+    this.title.setTitle(newTitle);
+  }
 
   public getProjectList() {
     this.projectService.getProjects().subscribe(projects => {

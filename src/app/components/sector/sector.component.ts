@@ -1,4 +1,12 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterContentInit, AfterViewChecked, AfterViewInit,
+  Component,
+  DoCheck,
+  Input, OnChanges,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {Sector} from '../../shared/model/sector.model';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {FormGroup} from '@angular/forms';
@@ -12,7 +20,8 @@ import {Project} from '../../shared/model/project.model';
   styleUrls: ['./sector.component.css']
 })
 
-export class SectorComponent implements OnInit {
+export class SectorComponent implements OnInit, AfterViewChecked {
+
   @Input() sectorForm: FormGroup;
   @Input() sectors: Sector[];
   @Input() project: Project;
@@ -33,24 +42,27 @@ export class SectorComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private projectService: ImpProjectService) {
-
   }
 
   ngOnInit() {
-
     this.projectService.getSectors().subscribe(
       sectors => {
         this.isReady = true;
         this.allSectors = sectors;
         this.initUnusedSectors();
-
-
       }
     );
+  }
+
+  ngAfterViewChecked() {
+    this.sectorSorting();
+  }
+
+  public sectorSorting() {
     this.dataSource = new MatTableDataSource(this.sectors);
-    this.dataSource.sort = this.sort;
-
-
+    if (this.dataSource.data && this.isReady) {
+      this.dataSource.sort = this.sort;
+    }
   }
 
   public getSectorNameById(id: number): string {
@@ -66,10 +78,14 @@ export class SectorComponent implements OnInit {
       this.percentSum += +percent.value;
       if (this.percentSum <= 100) {
         if (!this.dataSource.data) {
-          this.dataSource.data = [{'sectorId': this.selectedSectorId, 'percent': percent.value}];
+          this.dataSource = new MatTableDataSource([{'sectorId': this.selectedSectorId, 'percent': percent.value}]);
           this.dataSource.sort = this.sort;
         } else {
-          this.dataSource.data = [...this.dataSource.data, {'sectorId': this.selectedSectorId, 'percent': percent.value}];
+          this.dataSource.data.push({
+            'sectorId': this.selectedSectorId,
+            'percent': percent.value
+          });
+          this.dataSource = new MatTableDataSource(this.dataSource.data);
           this.dataSource.sort = this.sort;
         }
         this.selectedSectorId = null;

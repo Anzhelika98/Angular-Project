@@ -54,7 +54,7 @@ export class SampleComponent implements OnInit {
   }
 
   public changingEndDate = false;
-  public duration: number;
+
 
   ngOnInit() {
   }
@@ -66,12 +66,8 @@ export class SampleComponent implements OnInit {
 
 
   changingEndDateCalculation(event: MatDatepickerInputEvent<any>) {
-
-
     this.project.plannedEndDate = event.value;
     return this.calculationOfDuration();
-
-
   }
 
 
@@ -88,13 +84,13 @@ export class SampleComponent implements OnInit {
   }
 
 
-
-  public dayOrDays(): boolean {
-    this.duration = this.calculationOfDuration();
-    if (this.duration >= 0 && this.duration < 10) {
-      return true;
-    }
-  }
+  //
+  // public dayOrDays(): boolean {
+  //   this.duration = this.calculationOfDuration();
+  //   if (this.duration >= 0 && this.duration < 10) {
+  //     return true;
+  //   }
+  // }
 
 
 }
