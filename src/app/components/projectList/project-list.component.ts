@@ -1,16 +1,14 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort, MatTableDataSource} from '@angular/material';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {ProjectService} from '../../shared/api/project.service';
+import {Router} from '@angular/router';
+
 import {Project} from '../../shared/model/project.model';
-import {switchMap, tap} from 'rxjs/operators';
+
 import {ImpProjectService} from '../../shared/service/imp-project.service';
-import {element} from 'protractor';
-import {Observable, pipe} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 
 
-export interface PeriodicElementProject {
+export interface ProjectList {
   id: number;
   name: string;
 }
@@ -23,21 +21,25 @@ export interface PeriodicElementProject {
 
 })
 export class ProjectListComponent implements OnInit {
+  public data: ProjectDto;
+  public project: Project;
+  public projectInfo: ProjectList;
+  projectList: ProjectList[] = [];
+
+
+  public name;
 
   constructor(private projectService: ImpProjectService, private router: Router, private title: Title) {
 
   }
 
-  public data: ProjectDto;
-  public project: Project;
-  public projectInfo: PeriodicElementProject;
-  projectList: PeriodicElementProject[] = [];
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
     this.setTitle('Projects');
     this.getProjectList();
+
   }
 
 
@@ -78,6 +80,7 @@ export class ProjectListComponent implements OnInit {
     );
 
   }
+
 
   // public gotoProjects() {
   //   const projectId = this.project ? this.project.id : null;

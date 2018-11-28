@@ -1,18 +1,14 @@
-import {from, Observable, of, zip} from 'rxjs';
+import {Observable, of, zip} from 'rxjs';
 import {Project} from '../model/project.model';
 import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+
 import {ProjectService} from '../api/project.service';
 import {Sector} from '../model/sector.model';
 import {Country} from '../model/country.model';
 import {District} from '../model/district.model';
-import {element} from 'protractor';
 
 
-@Injectable({
-  providedIn: 'root'
-})
 export class ImpProjectService extends ProjectService {
 
   private static id = 4;
@@ -54,6 +50,9 @@ export class ImpProjectService extends ProjectService {
     return this.http.get<District[]>('./src/app/shared/mock/district.json');
   }
 
+  /**
+   * if has in projects list,then get observable project
+   */
   getProjectById(id: number): Observable<Project> {
     let project;
     if (this.projects) {
@@ -74,7 +73,7 @@ export class ImpProjectService extends ProjectService {
   saveProject(project: Project): Observable<any> {
     if (project && project.title && project.code) {
       if (project.id) {
-        let index = this.projects.findIndex(el => el.id === project.id);
+        const index = this.projects.findIndex(el => el.id === project.id);
         this.projects[index] = project;
         return of({
           success: true
@@ -90,12 +89,11 @@ export class ImpProjectService extends ProjectService {
     return of({
       success: false
     });
-
-
   }
 
   deleteProject(id: number): Observable<any> {
     const index = this.projects.findIndex(el => el.id === id);
+
     if (index > -1) {
       this.projects.splice(index, 1);
       return of({

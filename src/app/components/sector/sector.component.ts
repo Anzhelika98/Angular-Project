@@ -20,7 +20,7 @@ import {Project} from '../../shared/model/project.model';
   styleUrls: ['./sector.component.css']
 })
 
-export class SectorComponent implements OnInit, AfterViewChecked {
+export class SectorComponent implements OnInit {
 
   @Input() sectorForm: FormGroup;
   @Input() sectors: Sector[];
@@ -32,11 +32,11 @@ export class SectorComponent implements OnInit, AfterViewChecked {
   private allSectors: Sector[] = [];
   public selectedSectorId: number;
   private percentSum = 0;
-  public status = false;
+  // public status = false;
 
 
-  isReady = false;
-  displayedColumns: string[] = ['name', 'percent', 'delete'];
+  public isReady = false;
+  public displayedColumns: string[] = ['name', 'percent', 'delete'];
 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -47,19 +47,17 @@ export class SectorComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.projectService.getSectors().subscribe(
       sectors => {
-        this.isReady = true;
         this.allSectors = sectors;
         this.initUnusedSectors();
+        this.sectorSorting();
+        this.isReady = true;
       }
     );
   }
 
-  ngAfterViewChecked() {
-    this.sectorSorting();
-  }
 
   public sectorSorting() {
-    this.dataSource = new MatTableDataSource(this.sectors);
+    this.dataSource = new MatTableDataSource(this.sectors ? this.sectors : []);
     if (this.dataSource.data && this.isReady) {
       this.dataSource.sort = this.sort;
     }
@@ -75,26 +73,26 @@ export class SectorComponent implements OnInit, AfterViewChecked {
     const percent = this.sectorForm.controls.percent;
     const perSum = this.percentSum;
     if (percent.value && this.selectedSectorId) {
+      if (!this.dataSource.data) {
+        this.dataSource = new MatTableDataSource([]);
+      }
       this.percentSum += +percent.value;
       if (this.percentSum <= 100) {
-        if (!this.dataSource.data) {
-          this.dataSource = new MatTableDataSource([{'sectorId': this.selectedSectorId, 'percent': percent.value}]);
-          this.dataSource.sort = this.sort;
-        } else {
-          this.dataSource.data.push({
-            'sectorId': this.selectedSectorId,
-            'percent': percent.value
-          });
-          this.dataSource = new MatTableDataSource(this.dataSource.data);
-          this.dataSource.sort = this.sort;
-        }
+        this.dataSource.data.push({
+          'sectorId': this.selectedSectorId,
+          'percent': percent.value
+        });
+        this.dataSource = new MatTableDataSource(this.dataSource.data);
+        this.dataSource.sort = this.sort;
+
         this.selectedSectorId = null;
         this.initUnusedSectors();
         percent.reset();
-        this.status = false;
+        // this.status = false;
+
       } else {
         this.percentSum = perSum;
-        this.status = true;
+        // this.status = true;
       }
     }
 
@@ -104,23 +102,25 @@ export class SectorComponent implements OnInit, AfterViewChecked {
     const index = this.dataSource.data.findIndex(elem => elem.sectorId === id);
     this.dataSource.data.splice(index, 1);
     this.initUnusedSectors();
-    this.dataSource.data = [...this.dataSource.data];
+    this.dataSource = new MatTableDataSource(this.dataSource.data);
   }
 
 
   private initUnusedSectors() {
     this.unusedSectorList = [];
     this.percentSum = 0;
-    loop: for (let usedSector of this.allSectors) {
-      if (this.dataSource.data) {
+    if (this.dataSource && this.dataSource.data) {
+      loop: for (let usedSector of this.allSectors) {
         for (let sector of this.dataSource.data) {
           if (sector.sectorId === usedSector.id) {
             this.percentSum += +sector.percent;
             continue loop;
           }
         }
+        this.unusedSectorList.push(usedSector);
       }
-      this.unusedSectorList.push(usedSector);
+    } else {
+      this.unusedSectorList = this.allSectors;
     }
   }
 }

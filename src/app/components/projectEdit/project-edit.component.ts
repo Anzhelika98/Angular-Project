@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ImpProjectService} from '../../shared/service/imp-project.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Project} from '../../shared/model/project.model';
@@ -78,6 +78,8 @@ export class ProjectEditComponent implements OnInit {
       this.initFormGroup();
       this.isReady = true;
     }
+
+
   }
 
   public setTitle(newTitle: string) {
@@ -125,4 +127,6 @@ export class ProjectEditComponent implements OnInit {
     }
     return null;
   }
+
+
 }
